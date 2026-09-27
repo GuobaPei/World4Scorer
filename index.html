@@ -248,7 +248,7 @@ input[type=range] { accent-color: var(--accent); }
 .keys span { display: inline-flex; align-items: center; gap: 7px; }
 .sw { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex: none; }
 .sw.ours { background: var(--ink); box-shadow: 0 0 0 2px var(--surface), 0 0 0 3.5px var(--accent); }
-.plot { position: relative; margin-top: 4px; }
+.plot { position: relative; margin-top: 4px; overflow-x: auto; overscroll-behavior-x: contain; }
 .plot svg { display: block; overflow: visible; }
 .plot text { font-family: Inter, system-ui, sans-serif; }
 .pt { transition: opacity .6s cubic-bezier(.2, .7, .2, 1), transform .6s cubic-bezier(.2, .7, .2, 1); transform-box: fill-box; transform-origin: center; }
@@ -457,7 +457,7 @@ footer { margin: 110px 0 40px; text-align: center; color: var(--muted); font-siz
 
     <div class="panel on reveal" id="p-navsim">
       <div class="card chart-card">
-        <div class="chart-head"><b>PDMS (NAVSIM-v1) and EPDMS (NAVSIM-v2) on navtest</b><span class="dim">hover or tab to a point</span></div>
+        <div class="chart-head"><b>PDMS (NAVSIM-v1) and EPDMS (NAVSIM-v2) on navtest</b><span class="dim">hover a point for details</span></div>
         <div class="keys" id="navsim-keys"></div>
         <div class="plot" id="navsim-plot"></div>
       </div>
@@ -839,47 +839,79 @@ const CLIPS = [
   GROUPS.forEach((g, i) => { const s = document.createElement("span"), w = document.createElement("i");
     w.className = "sw" + (i === 3 ? " ours" : ""); if (i < 3) w.style.background = groupColor(i); s.append(w, g); $("#navsim-keys").appendChild(s); });
 
+  const measure = (() => { const c = document.createElement("canvas").getContext("2d");
+    return (t, size, weight) => { c.font = `${weight} ${size}px Inter, system-ui, sans-serif`; return c.measureText(t).width; }; })();
   function scatter() {
-    const box = $("#navsim-plot"), W = box.clientWidth; if (!W) return;
-    const small = W < 520, H = Math.round(Math.min(460, Math.max(300, W * 0.6)));
-    const m = {l: 40, r: small ? 8 : 16, t: 26, b: 40}, X0 = 83.5, X1 = 94.6, Y0 = 82, Y1 = 94;
+    const box = $("#navsim-plot"); if (!box.clientWidth) return;
+    const W = Math.max(box.clientWidth, 700), H = Math.round(Math.min(520, Math.max(400, W * 0.56)));   // narrow screens scroll sideways
+    const m = {l: 40, r: 16, t: 28, b: 40}, X0 = 83.5, X1 = 94.6, Y0 = 82, Y1 = 94;
     const x = v => m.l + (v - X0) / (X1 - X0) * (W - m.l - m.r), y = v => H - m.b - (v - Y0) / (Y1 - Y0) * (H - m.t - m.b);
     box.replaceChildren();
-    const svg = sv("svg", {width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "Scatter of PDMS against EPDMS for 20 methods; World4Scorer is highest on both."}, box);
+    const svg = sv("svg", {width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "Scatter of PDMS against EPDMS for 20 methods, each labelled; World4Scorer is highest on both."}, box);
     const g = sv("g", {}, svg);
-    const txt = (x0, y0, s, a = {}) => { const e = sv("text", {x: x0, y: y0, "font-size": 11.5, fill: "var(--muted)", ...a}, g); e.textContent = s; return e; };
+    const txt = (x0, y0, s, a = {}, parent = g) => { const e = sv("text", {x: x0, y: y0, "font-size": 11.5, fill: "var(--muted)", ...a}, parent); e.textContent = s; return e; };
     for (let v = 84; v <= 94; v += 2) { sv("line", {x1: x(v), x2: x(v), y1: y(Y0), y2: y(Y1), stroke: "var(--grid)"}, g); txt(x(v), H - m.b + 18, v, {"text-anchor": "middle"}); }
     for (let v = 82; v <= 94; v += 2) { sv("line", {x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), stroke: v === Y0 ? "var(--axis)" : "var(--grid)"}, g); txt(m.l - 8, y(v) + 4, v, {"text-anchor": "end"}); }
     txt(W - m.r, H - 4, "PDMS (NAVSIM-v1) →", {"text-anchor": "end", fill: "var(--ink2)"});
     txt(m.l - 32, 12, "EPDMS (NAVSIM-v2) ↑", {fill: "var(--ink2)"});
     // re-ranking reference: EPDMS only, PDMS not reported
-    const yr = y(93.0);
+    const yr = y(93.0), reTxt = "World4Scorer + inertial re-ranking: EPDMS 93.0 (no PDMS reported)", reW = measure(reTxt, 11.5, 400);
     sv("line", {x1: m.l, x2: W - m.r, y1: yr, y2: yr, stroke: "var(--accent)", "stroke-width": 1.5}, g);
-    txt(W - m.r - 2, yr - 7, small ? "+ inertial re-ranking: 93.0" : "World4Scorer + inertial re-ranking: EPDMS 93.0 (no PDMS reported)", {"text-anchor": "end", fill: "var(--ink2)"});
+    txt(W - m.r - 2, yr - 7, reTxt, {"text-anchor": "end", fill: "var(--ink2)"});
     const pts = NAVSIM.filter(r => r[4] != null).map(r => ({name: r[0], venue: r[1], grp: r[3], p: r[4], e: r[5], X: x(r[4]), Y: y(r[5])}))
       .sort((a, b) => (a.grp === 3) - (b.grp === 3));
-    const label = p => [`EPDMS ${p.e.toFixed(1)} · PDMS ${p.p.toFixed(1)}`, `${p.name} · ${p.venue}`];
+    // label placement: every dot, the reference line and its text are obstacles; each name takes the first free slot
+    // around its dot (8 directions, then farther out with a leader line); crowded dots choose first
+    const taken = [[m.l, yr - 3, W - m.r, yr + 3], [W - m.r - 4 - reW, yr - 20, W - m.r, yr - 3]];
+    const own = new Map(); pts.forEach(p => { const r = p.grp === 3 ? 14 : 8; own.set(p, taken.length); taken.push([p.X - r, p.Y - r, p.X + r, p.Y + r]); });
+    const clash = (b, skip) => b[0] < m.l + 2 || b[2] > W - 2 || b[1] < m.t - 6 || b[3] > H - m.b - 2 || taken.some((o, k) => k !== skip && b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1]);
+    const DIRS = [[1, 0], [-1, 0], [0, -1], [0, 1], [.8, -.6], [.8, .6], [-.8, -.6], [-.8, .6]];
+    const crowd = p => pts.filter(q => Math.hypot(q.X - p.X, q.Y - p.Y) < 60).length;
+    const labels = new Map();
+    for (const p of [...pts].sort((a, b) => (b.grp === 3) - (a.grp === 3) || crowd(b) - crowd(a))) {
+      const ours = p.grp === 3, fs = ours ? 12 : 11, w = measure(p.name, fs, ours ? 600 : 500), h = 13, R = ours ? 14 : 7;
+      let best = null;
+      for (const D of ours ? [0] : [0, 12, 24, 38, 54, 72]) {
+        for (const [ux, uy] of ours ? [[-1, 0]] : DIRS) {
+          const ax = p.X + ux * (R + D), ay = p.Y + uy * (R + D);
+          const x0 = ux > .1 ? ax + 2 : ux < -.1 ? ax - w - 2 : ax - w / 2, y0 = uy > .1 ? ay : uy < -.1 ? ay - h : ay - h / 2;
+          const b = [x0 - 2, y0 - 1, x0 + w + 2, y0 + h + 1];
+          if (!clash(b, own.get(p))) { best = {b, x0, y0, D}; break; }
+        }
+        if (best) break;
+      }
+      if (!best) continue;
+      taken.push(best.b); labels.set(p, {...best, fs, ours});
+    }
+    const tip = p => [`EPDMS ${p.e.toFixed(1)} · PDMS ${p.p.toFixed(1)}`, `${p.name} · ${p.venue}`];
     pts.forEach((p, i) => {
-      const ours = p.grp === 3, gg = sv("g", {class: "pt", style: `transition-delay:${reduce ? 0 : 80 + i * 35}ms`}, svg);
+      const ours = p.grp === 3, gg = sv("g", {class: "pt", style: `transition-delay:${reduce ? 0 : 80 + i * 35}ms`}, svg), L = labels.get(p);
+      if (L && L.D > 0) {                                   // leader from the dot edge to the nearest point of the label box
+        const cx = Math.max(L.b[0], Math.min(p.X, L.b[2])), cy = Math.max(L.b[1], Math.min(p.Y, L.b[3])), d = Math.hypot(cx - p.X, cy - p.Y) || 1;
+        sv("line", {x1: p.X + (cx - p.X) / d * 6, y1: p.Y + (cy - p.Y) / d * 6, x2: cx, y2: cy, stroke: "var(--muted)", "stroke-opacity": .55, "stroke-width": 1}, gg);
+      }
       if (ours) sv("circle", {cx: p.X, cy: p.Y, r: 11.5, fill: "none", stroke: "var(--accent)", "stroke-width": 2}, gg);
       sv("circle", {cx: p.X, cy: p.Y, r: ours ? 7 : 5, fill: groupColor(p.grp), stroke: "var(--surface)", "stroke-width": 2}, gg);
+      if (L) txt(L.x0, L.y0 + 10, p.name, {"font-size": L.fs, "font-weight": ours ? 600 : 500, fill: ours ? "var(--ink)" : "var(--ink2)"}, gg);
       const hit = sv("circle", {cx: p.X, cy: p.Y, r: 12, fill: "transparent", tabindex: 0, role: "img", "aria-label": `${p.name}, ${p.venue}: PDMS ${p.p.toFixed(1)}, EPDMS ${p.e.toFixed(1)}`}, gg);
-      hit.addEventListener("focus", () => { const r = hit.getBoundingClientRect(); showTip(r.left + r.width / 2, r.top, ...label(p)); });
+      hit.addEventListener("focus", () => { const r = hit.getBoundingClientRect(); showTip(r.left + r.width / 2, r.top, ...tip(p)); });
       hit.addEventListener("blur", hideTip);
-      if (ours) { const lb = sv("text", {x: p.X - 17, y: p.Y + 4, "text-anchor": "end", "font-size": 12, "font-weight": 600, fill: "var(--ink)", class: "pt"}, svg); lb.textContent = "World4Scorer"; }
     });
     // nearest point within 26 px; the pointer only has to be closest, not on the dot
     svg.addEventListener("pointermove", ev => {
       const r = svg.getBoundingClientRect(), mx = ev.clientX - r.left, my = ev.clientY - r.top;
       let best = null, bd = 26; pts.forEach(p => { const d = Math.hypot(p.X - mx, p.Y - my); if (d < bd) { bd = d; best = p; } });
-      if (best) showTip(r.left + best.X, r.top + best.Y, ...label(best));
+      if (best) showTip(r.left + best.X, r.top + best.Y, ...tip(best));
       else if (Math.abs(my - yr) < 7 && mx > m.l) showTip(ev.clientX, r.top + yr, "EPDMS 93.0", "World4Scorer + inertial re-ranking · no PDMS reported");
       else hideTip();
     });
     svg.addEventListener("pointerleave", hideTip);
+    if (labels.size < pts.length) console.warn("unplaced labels", pts.filter(p => !labels.has(p)).map(p => p.name));
+    if (box.clientWidth < W && !box.dataset.scrolled) { box.scrollLeft = W; box.dataset.scrolled = 1; }   // start where the leaders are
   }
   let lastW = 0;
   new ResizeObserver(() => { const w = $("#navsim-plot").clientWidth; if (w && w !== lastW) { lastW = w; scatter(); } }).observe($("#navsim-plot"));
+  document.fonts.ready.then(() => { lastW = 0; scatter(); });
   onReveal.push(t => { if (t.id === "p-navsim") requestAnimationFrame(() => $("#navsim-plot").classList.add("in")); });
 
   // NAVSIM table: top 8 by default, sortable by either metric
