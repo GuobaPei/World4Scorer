@@ -339,6 +339,7 @@ footer { margin: 110px 0 40px; text-align: center; color: var(--muted); font-siz
     <div class="cta">
       <a class="btn primary" href="#demo"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Live demo</a>
       <a class="btn" aria-disabled="true" title="Coming soon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Paper · soon</a>
+      <a class="btn" href="https://huggingface.co/pei2333/World4Scorer"><span aria-hidden="true" style="font-size:17px;line-height:1">🤗</span>Hugging Face</a>
       <a class="btn" href="https://github.com/GuobaPei/World4Scorer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2 0-.4-.5-1.6.2-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5z"/></svg>Code</a>
       <a class="btn" href="#bibtex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/></svg>BibTeX</a>
     </div>
@@ -500,6 +501,10 @@ footer { margin: 110px 0 40px; text-align: center; color: var(--muted); font-siz
 <div class="tip" id="tip" role="status" aria-live="polite"></div>
 
 <script src="static/data/scene_lv.js"></script>
+<script src="static/data/scene_lvl.js"></script>
+<script src="static/data/scene_lvb.js"></script>
+<script src="static/data/scene_bos.js"></script>
+<script src="static/data/scene_pit.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script>
 // Numbers as reported in the paper (Tables 1, 4 and 5); checked against static/data/results.json.
@@ -517,13 +522,12 @@ const NAVSIM = [
   ["Drive-JEPA","arXiv'26","C",2,93.7,90.8],
   ["World4Scorer","this work","C",3,94.0,91.4],["World4Scorer + inertial re-ranking","this work","C",3,null,93.0]];
 const GROUPS = ["End-to-end", "Vision-language-action", "World-model augmented", "World4Scorer (ours)"];
-const B2D = [["VAD",42.35],["WoTE",61.71],["ThinkTwice",62.44],["DriveAdapter",64.22],["Drive-JEPA",64.52],["SafeDrive",66.77],["World4Scorer",73.27,1]];
+const B2D = [["VAD",42.35],["WoTE",61.71],["ThinkTwice",62.44],["DriveAdapter",64.22],["Drive-JEPA",64.52],["SafeDrive",66.77],["ReCogDrive",71.36],["World4Scorer",73.27,1]];
 const CUBE = [["GCIQL",64,0,"reported by LeWM"],["GCIVL",56,0,"reported by LeWM"],["PLDM",65,0,"reported by LeWM"],
   ["LeWM",68.91,0,"our runs, 11 seeds × 50 episodes"],["World4Scorer",73.64,1,"LeWM + our outcome score; our runs, 11 seeds × 50 episodes"]];
 const CLIPS = [
-  {src: "static/videos/b2d_3572.mp4", title: "An oncoming car invades the lane at a turn", text: "Bench2Drive · Town13 · InvadingTurn. Closed loop, driving score 100. Every frame rendered by CARLA, played at 1.5× speed."},
-  {src: "static/videos/b2d_24759.mp4", title: "A parked car pulls out in front", text: "Bench2Drive · Town05 · ParkingCutIn, in fog. Closed loop, driving score 100. Played at 1.5× speed."},
-  {src: "static/videos/b2d_3090.mp4", title: "Turning through a stream of cyclists", text: "Bench2Drive · Town12 · CrossingBicycleFlow. Closed loop, driving score 100. Played at 1.5× speed; the long waits at the junction are fast-forwarded (9×).", wide: true},
+  {src: "static/videos/b2d_2715.mp4", title: "A taxi cuts into the lane", text: "Bench2Drive · StaticCutIn. Closed loop: the planner's own choices move the car. Driving score 100. Every frame rendered by CARLA, played at 1.5× speed."},
+  {src: "static/videos/b2d_17752.mp4", title: "A pedestrian steps into the road at night", text: "Bench2Drive · DynamicObjectCrossing, at night. Closed loop, driving score 100. Played at 1.5× speed."},
   {src: "static/videos/cube_pair.mp4", title: "OGBench-Cube: outcome scoring fixes a failed placement", text: "Same frozen LeWM world model and planning budget. Left: LeWM alone fails to place the cube. Right: with our outcome score, the placement succeeds.", wide: true}
 ];
 
