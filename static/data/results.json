@@ -1,0 +1,229 @@
+{
+ "navsim": [
+  {
+   "method": "TransFuser",
+   "venue": "TPAMI'23",
+   "input": "C+L",
+   "group": "End-to-end",
+   "pdms": 84.0,
+   "epdms": 83.9
+  },
+  {
+   "method": "DiffusionDrive",
+   "venue": "CVPR'25",
+   "input": "C+L",
+   "group": "End-to-end",
+   "pdms": 88.1,
+   "epdms": 88.2
+  },
+  {
+   "method": "DiffusionDrive-V2",
+   "venue": "arXiv'25",
+   "input": "C",
+   "group": "End-to-end",
+   "pdms": 91.2,
+   "epdms": 87.5
+  },
+  {
+   "method": "DAWN",
+   "venue": "arXiv'26",
+   "input": "C",
+   "group": "End-to-end",
+   "pdms": 89.1,
+   "epdms": 83.2
+  },
+  {
+   "method": "LWDrive",
+   "venue": "arXiv'26",
+   "input": "C",
+   "group": "End-to-end",
+   "pdms": 92.0,
+   "epdms": 89.6
+  },
+  {
+   "method": "UniTeD",
+   "venue": "ECCV'26",
+   "input": "C",
+   "group": "End-to-end",
+   "pdms": 90.2,
+   "epdms": 90.1
+  },
+  {
+   "method": "DrivoR",
+   "venue": "CVPR'26",
+   "input": "C",
+   "group": "End-to-end",
+   "pdms": 93.7,
+   "epdms": 90.7
+  },
+  {
+   "method": "ReCogDrive",
+   "venue": "ICLR'26",
+   "input": "C",
+   "group": "Vision-language-action",
+   "pdms": 90.8,
+   "epdms": 82.7
+  },
+  {
+   "method": "DriveVLA-W0",
+   "venue": "ICLR'26",
+   "input": "C",
+   "group": "Vision-language-action",
+   "pdms": 90.2,
+   "epdms": 86.1
+  },
+  {
+   "method": "DriveWorld-VLA",
+   "venue": "ICML'26",
+   "input": "C",
+   "group": "Vision-language-action",
+   "pdms": 91.3,
+   "epdms": 86.8
+  },
+  {
+   "method": "ExploreVLA",
+   "venue": "ECCV'26",
+   "input": "C",
+   "group": "Vision-language-action",
+   "pdms": 90.4,
+   "epdms": 88.8
+  },
+  {
+   "method": "WAM-Flow",
+   "venue": "CVPR'26",
+   "input": "C",
+   "group": "Vision-language-action",
+   "pdms": 90.3,
+   "epdms": 84.9
+  },
+  {
+   "method": "WoTE",
+   "venue": "ICCV'25",
+   "input": "C+L",
+   "group": "World-model augmented",
+   "pdms": 88.3,
+   "epdms": 87.6
+  },
+  {
+   "method": "WorldRFT",
+   "venue": "AAAI'26",
+   "input": "C",
+   "group": "World-model augmented",
+   "pdms": 87.8,
+   "epdms": 86.7
+  },
+  {
+   "method": "GraphWorld",
+   "venue": "arXiv'26",
+   "input": "C",
+   "group": "World-model augmented",
+   "pdms": 90.1,
+   "epdms": 89.5
+  },
+  {
+   "method": "Discrete-WAM",
+   "venue": "arXiv'26",
+   "input": "C",
+   "group": "World-model augmented",
+   "pdms": 92.2,
+   "epdms": 90.4
+  },
+  {
+   "method": "DriveFuture",
+   "venue": "arXiv'26",
+   "input": "C",
+   "group": "World-model augmented",
+   "pdms": 90.7,
+   "epdms": 89.9
+  },
+  {
+   "method": "SafeDrive",
+   "venue": "CVPR'26",
+   "input": "C+L",
+   "group": "World-model augmented",
+   "pdms": 91.6,
+   "epdms": 87.5
+  },
+  {
+   "method": "Drive-JEPA",
+   "venue": "arXiv'26",
+   "input": "C",
+   "group": "World-model augmented",
+   "pdms": 93.7,
+   "epdms": 90.8
+  },
+  {
+   "method": "Ours",
+   "venue": "this work",
+   "input": "C",
+   "group": "Ours",
+   "pdms": 94.0,
+   "epdms": 91.4
+  },
+  {
+   "method": "Ours + inertial re-ranking",
+   "venue": "",
+   "input": "C",
+   "group": "Ours",
+   "pdms": null,
+   "epdms": 93.0
+  }
+ ],
+ "b2d": [
+  {
+   "method": "VAD",
+   "ds": 42.35
+  },
+  {
+   "method": "WoTE",
+   "ds": 61.71
+  },
+  {
+   "method": "ThinkTwice",
+   "ds": 62.44
+  },
+  {
+   "method": "DriveAdapter",
+   "ds": 64.22
+  },
+  {
+   "method": "Drive-JEPA",
+   "ds": 64.52
+  },
+  {
+   "method": "SafeDrive",
+   "ds": 66.77
+  },
+  {
+   "method": "Ours",
+   "ds": 73.27
+  }
+ ],
+ "cube": [
+  {
+   "method": "GCIQL",
+   "success": 64.0,
+   "source": "reported by LeWM"
+  },
+  {
+   "method": "GCIVL",
+   "success": 56.0,
+   "source": "reported by LeWM"
+  },
+  {
+   "method": "PLDM",
+   "success": 65.0,
+   "source": "reported by LeWM"
+  },
+  {
+   "method": "LeWM",
+   "success": 68.91,
+   "source": "our runs, 11 seeds"
+  },
+  {
+   "method": "Ours",
+   "success": 73.64,
+   "source": "our runs, 11 seeds"
+  }
+ ]
+}
