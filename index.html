@@ -21,6 +21,7 @@
 // Media come from jsDelivr, a CDN mirror of this repository that is much faster than GitHub Pages from some networks;
 // any image, video or script that fails there falls back to the copy on this site.
 window.CDN = "https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@5c57346192b0e9e0a4298c7f00432ecbd6eefd52/";
+window.posterFor = (v, path) => { const im = new Image(); im.onload = () => { v.poster = im.src; }; im.onerror = () => { v.poster = path; }; im.src = window.CDN + path; };
 document.addEventListener("error", e => { const el = e.target;
   if (!el || !el.dataset || !el.dataset.local || !el.src || el.src.indexOf(window.CDN) !== 0) return;
   el.src = el.dataset.local; if (el.tagName === "VIDEO") { el.load(); if (el.dataset.want) el.play().catch(() => {}); } }, true);
@@ -375,7 +376,7 @@ footer { margin: 110px 0 40px; text-align: center; color: var(--muted); font-siz
   <section class="block" id="video">
     <div class="reveal"><div class="kicker">Overview</div><h2>The scorer is a world model</h2>
     <p class="lead">A generate-and-select planner proposes many trajectories and must pick one it has never seen executed. World4Scorer predicts a state for every candidate, trains those states with simulator outcomes, and anchors the shared predictor with the one future the driving log actually recorded.</p></div>
-    <div class="video-frame reveal"><video id="film" controls playsinline preload="none" poster="static/images/film_poster.jpg" data-mp4="static/videos/world4scorer_film.mp4" data-hls="static/videos/film/film.m3u8" aria-label="World4Scorer overview film, 95 seconds, narrated with subtitles"></video></div>
+    <div class="video-frame reveal"><video id="film" controls playsinline preload="none" data-mp4="static/videos/world4scorer_film.mp4" data-hls="static/videos/film/film.m3u8" aria-label="World4Scorer overview film, 95 seconds, narrated with subtitles"></video></div>
     <div class="tldr">
       <div class="reveal">
         <p>Driving logs record the future of only the executed trajectory, so matching the logged future can leave predictions for the alternatives unconstrained. A simulator, in contrast, can label the outcome of every candidate.</p>
@@ -697,7 +698,7 @@ const CLIPS = [
       const ker = []; for (let i = -27; i <= 27; i++) ker.push(Math.exp(-0.5 * (i / 9) ** 2));
       const ks = ker.reduce((a, b) => a + b, 0);
       vyaw = dense.map((_, i) => ker.reduce((a, w, j) => a + w * dense[Math.max(0, Math.min(dense.length - 1, i + j - 27))][2], 0) / ks);
-      video.poster = `static/images/posters/demo_${S.key}_cam.webp`; video.dataset.local = `static/videos/demo_${S.key}_cam.mp4`;
+      posterFor(video, `static/images/posters/demo_${S.key}_cam.webp`); video.dataset.local = `static/videos/demo_${S.key}_cam.mp4`;
       video.src = CDN + video.dataset.local; video.playbackRate = speed;
       $("#demo-title").textContent = S.title; $("#demo-sub").textContent = S.subtitle || "";
       $$("#demo-scenes button").forEach(b => b.classList.toggle("on", b.dataset.k === S.key));
@@ -1009,7 +1010,7 @@ const CLIPS = [
     if (c.note) { const d = document.createElement("div"); d.className = "clip-note reveal"; d.innerHTML = c.note; $("#clips").appendChild(d); io.observe(d); return; }
     const f = document.createElement("figure"); f.className = "card clip reveal" + (c.wide ? " wide" : "");
     const v = document.createElement("video"); v.muted = v.defaultMuted = true; v.loop = true; v.setAttribute("playsinline", ""); v.preload = "none"; v.dataset.src = c.src; v.setAttribute("aria-label", c.title); if (c.ar) v.style.aspectRatio = c.ar;
-    v.poster = "static/images/posters/" + c.src.split("/").pop().replace(".mp4", ".webp");
+    posterFor(v, "static/images/posters/" + c.src.split("/").pop().replace(".mp4", ".webp"));
     const m = document.createElement("div"); m.className = "meta"; const h = document.createElement("h3"); h.textContent = c.title; const p = document.createElement("p"); p.textContent = c.text;
     m.append(h, p); f.append(v, m); $("#clips").appendChild(f); io.observe(f);
   });
@@ -1023,7 +1024,7 @@ const CLIPS = [
 
   /* ---------------- the film: HLS from the CDN, the MP4 here as fallback ---------------- */
   (function film() {
-    const v = $("#film"); if (!v) return; let started = false, wantPlay = false;
+    const v = $("#film"); if (!v) return; let started = false, wantPlay = false; posterFor(v, "static/images/film_poster.jpg");
     const mp4 = () => { v.src = v.dataset.mp4; if (wantPlay) v.play().catch(() => {}); };
     const start = () => { if (started) return; started = true;
       const s = document.createElement("script"); s.src = "https://cdn.jsdelivr.net/npm/hls.js@1.5/dist/hls.light.min.js";
