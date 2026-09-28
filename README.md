@@ -11,8 +11,8 @@
 [![NAVSIM-v2](https://img.shields.io/badge/NAVSIM--v2-93.0%20EPDMS-2ea44f.svg)](#results)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
-Jieyuan Pei<sup>1,2,3*‡</sup>, Meiyi Lu<sup>4*</sup>, Sining Ang<sup>5</sup>, Yubo Zhao<sup>6</sup>, Zhangyi Hu<sup>3</sup>, Mingwei Xu<sup>7</sup>, Haokai Ding<sup>8</sup>, Wei Li<sup>9</sup>,<br>
-Zihan You<sup>1,10</sup>, Jianwei Zheng<sup>9</sup>, Li Yu<sup>11</sup>, Yifeng Pan<sup>11</sup>, Ji Tao<sup>11</sup>, Rongjunchen Zhang<sup>2</sup>, Yan Wang<sup>1†</sup>
+[Jieyuan Pei](https://scholar.google.com/citations?user=xAAOO_0AAAAJ)<sup>1,2,3*‡</sup>, [Meiyi Lu](https://scholar.google.com/citations?user=2icZCggAAAAJ)<sup>4*</sup>, [Sining Ang](https://scholar.google.com/citations?user=ZBVnV8cAAAAJ)<sup>5</sup>, Yubo Zhao<sup>6</sup>, Zhangyi Hu<sup>3</sup>, [Mingwei Xu](https://scholar.google.com/citations?user=jOZPNeQAAAAJ)<sup>7</sup>, [Haokai Ding](https://scholar.google.com/citations?user=ikir1CUAAAAJ)<sup>8</sup>, Wei Li<sup>9</sup>,<br>
+[Zihan You](https://scholar.google.com/citations?user=LnvFQJUAAAAJ)<sup>1,10</sup>, [Jianwei Zheng](https://scholar.google.com/citations?user=X0wntOEAAAAJ)<sup>9</sup>, Li Yu<sup>11</sup>, [Yifeng Pan](https://scholar.google.com/citations?user=Qh943UAAAAAJ)<sup>11</sup>, Ji Tao<sup>11</sup>, [Rongjunchen Zhang](https://scholar.google.com/citations?user=Ae41dcUAAAAJ)<sup>2</sup>, [Yan Wang](https://scholar.google.com/citations?user=QOZnsYYAAAAJ)<sup>1†</sup>
 
 <sub><sup>1</sup>Institute for AI Industry Research (AIR), Tsinghua University · <sup>2</sup>HiThink Research · <sup>3</sup>The Hong Kong University of Science and Technology (Guangzhou) · <sup>4</sup>Zhejiang University · <sup>5</sup>University of Science and Technology of China · <sup>6</sup>SMBU · <sup>7</sup>University of Washington · <sup>8</sup>Mohamed bin Zayed University of Artificial Intelligence · <sup>9</sup>Zhejiang University of Technology · <sup>10</sup>Southeast University · <sup>11</sup>Changan Automobile</sub><br>
 <sub><sup>*</sup>Equal contribution · <sup>†</sup>Corresponding author · <sup>‡</sup>Work done during an internship</sub>
