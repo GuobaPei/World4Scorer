@@ -292,7 +292,7 @@ table.res td b { font-weight: 700; }
 .clip h3 { margin: 0; font-size: 1.02rem; }
 .clip p { margin: 4px 0 0; font-size: .9rem; color: var(--muted); }
 .clip.wide { grid-column: 1 / -1; }
-.clip.wide video { aspect-ratio: 1020 / 556; }
+.clip.wide video { aspect-ratio: 1080 / 564; }
 @media (max-width: 860px) { .gallery { grid-template-columns: minmax(0, 1fr); } }
 
 /* bibtex + footer */
@@ -358,6 +358,7 @@ footer { margin: 110px 0 40px; text-align: center; color: var(--muted); font-siz
   <section class="block" id="video">
     <div class="reveal"><div class="kicker">Overview</div><h2>The scorer is a world model</h2>
     <p class="lead">A generate-and-select planner proposes many trajectories and must pick one it has never seen executed. World4Scorer predicts a state for every candidate, trains those states with simulator outcomes, and anchors the shared predictor with the one future the driving log actually recorded.</p></div>
+    <div class="video-frame reveal"><video id="film" controls playsinline preload="metadata" poster="static/images/film_poster.jpg" aria-label="World4Scorer overview film, 95 seconds, narrated with subtitles"><source src="static/videos/world4scorer_film.mp4" type="video/mp4"></video></div>
     <div class="tldr">
       <div class="reveal">
         <p>Driving logs record the future of only the executed trajectory, so matching the logged future can leave predictions for the alternatives unconstrained. A simulator, in contrast, can label the outcome of every candidate.</p>
@@ -528,6 +529,7 @@ const CUBE = [["GCIQL",64,0,"reported by LeWM"],["GCIVL",56,0,"reported by LeWM"
 const CLIPS = [
   {src: "static/videos/b2d_2715.mp4", title: "A taxi cuts into the lane", text: "Bench2Drive · StaticCutIn. Closed loop: the planner's own choices move the car. Driving score 100. Every frame rendered by CARLA, played at 1.5× speed."},
   {src: "static/videos/b2d_17752.mp4", title: "A pedestrian steps into the road at night", text: "Bench2Drive · DynamicObjectCrossing, at night. Closed loop, driving score 100. Played at 1.5× speed."},
+  {src: "static/videos/b2d_3048.mp4", title: "Merging into slow highway traffic", text: "Bench2Drive · MergerIntoSlowTraffic. Closed loop, driving score 100. Played at 1.5× speed; the wait in traffic is fast-forwarded (9×).", wide: true, ar: "1200 / 432"},
   {src: "static/videos/cube_pair.mp4", title: "OGBench-Cube: outcome scoring fixes a failed placement", text: "Same frozen LeWM world model and planning budget. Left: LeWM alone fails to place the cube. Right: with our outcome score, the placement succeeds.", wide: true}
 ];
 
@@ -978,7 +980,7 @@ const CLIPS = [
   /* ---------------- gallery ---------------- */
   CLIPS.forEach(c => {
     const f = document.createElement("figure"); f.className = "card clip reveal" + (c.wide ? " wide" : "");
-    const v = document.createElement("video"); v.muted = v.defaultMuted = true; v.loop = true; v.setAttribute("playsinline", ""); v.preload = "none"; v.dataset.src = c.src; v.setAttribute("aria-label", c.title);
+    const v = document.createElement("video"); v.muted = v.defaultMuted = true; v.loop = true; v.setAttribute("playsinline", ""); v.preload = "none"; v.dataset.src = c.src; v.setAttribute("aria-label", c.title); if (c.ar) v.style.aspectRatio = c.ar;
     const m = document.createElement("div"); m.className = "meta"; const h = document.createElement("h3"); h.textContent = c.title; const p = document.createElement("p"); p.textContent = c.text;
     m.append(h, p); f.append(v, m); $("#clips").appendChild(f); io.observe(f);
   });
