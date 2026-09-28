@@ -20,7 +20,7 @@
 <script>
 // Media come from jsDelivr, a CDN mirror of this repository that is much faster than GitHub Pages from some networks;
 // any image, video or script that fails there falls back to the copy on this site.
-window.CDN = "https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@5c57346192b0e9e0a4298c7f00432ecbd6eefd52/";
+window.CDN = "https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@bea7ad38b9cb60a3dfdaf045f2bd612be91e5d85/";
 window.posterFor = (v, path) => { const im = new Image(); im.onload = () => { v.poster = im.src; }; im.onerror = () => { v.poster = path; }; im.src = window.CDN + path; };
 document.addEventListener("error", e => { const el = e.target;
   if (!el || !el.dataset || !el.dataset.local || !el.src || el.src.indexOf(window.CDN) !== 0) return;
@@ -424,19 +424,19 @@ footer { margin: 110px 0 40px; text-align: center; color: var(--muted); font-siz
     <p class="lead">Three ways to train the scorer of a generate-and-select planner, and the architecture that combines outcome labels with future prediction.</p></div>
     <div class="tabs reveal" id="ptabs"><button class="on" data-i="0">(a) Generate and select</button><button data-i="1">(b) World-model planning</button><button data-i="2">(c) World4Scorer</button></div>
     <div class="card paradigm reveal">
-      <div class="paper pfig"><img id="pimg" src="https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@5c57346192b0e9e0a4298c7f00432ecbd6eefd52/static/images/paradigm_a.webp" data-local="static/images/paradigm_a.webp" alt="Generate and select">
+      <div class="paper pfig"><img id="pimg" src="https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@bea7ad38b9cb60a3dfdaf045f2bd612be91e5d85/static/images/paradigm_a.webp" data-local="static/images/paradigm_a.webp" alt="Generate and select">
         <div class="plegend">
-          <span><img src="https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@5c57346192b0e9e0a4298c7f00432ecbd6eefd52/static/images/lg_outcome.png" data-local="static/images/lg_outcome.png" alt="">outcome supervision</span>
-          <span><img src="https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@5c57346192b0e9e0a4298c7f00432ecbd6eefd52/static/images/lg_future.png" data-local="static/images/lg_future.png" alt="">future-prediction supervision</span>
-          <span><img src="https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@5c57346192b0e9e0a4298c7f00432ecbd6eefd52/static/images/lg_sim.png" data-local="static/images/lg_sim.png" alt="">simulator label</span>
-          <span><img src="https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@5c57346192b0e9e0a4298c7f00432ecbd6eefd52/static/images/lg_obs.png" data-local="static/images/lg_obs.png" alt="">observed future</span>
-          <span><img src="https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@5c57346192b0e9e0a4298c7f00432ecbd6eefd52/static/images/lg_unobs.png" data-local="static/images/lg_unobs.png" alt="">unobserved future</span>
-          <span><img src="https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@5c57346192b0e9e0a4298c7f00432ecbd6eefd52/static/images/lg_train.png" data-local="static/images/lg_train.png" alt="">training only</span>
+          <span><img src="https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@bea7ad38b9cb60a3dfdaf045f2bd612be91e5d85/static/images/lg_outcome.png" data-local="static/images/lg_outcome.png" alt="">outcome supervision</span>
+          <span><img src="https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@bea7ad38b9cb60a3dfdaf045f2bd612be91e5d85/static/images/lg_future.png" data-local="static/images/lg_future.png" alt="">future-prediction supervision</span>
+          <span><img src="https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@bea7ad38b9cb60a3dfdaf045f2bd612be91e5d85/static/images/lg_sim.png" data-local="static/images/lg_sim.png" alt="">simulator label</span>
+          <span><img src="https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@bea7ad38b9cb60a3dfdaf045f2bd612be91e5d85/static/images/lg_obs.png" data-local="static/images/lg_obs.png" alt="">observed future</span>
+          <span><img src="https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@bea7ad38b9cb60a3dfdaf045f2bd612be91e5d85/static/images/lg_unobs.png" data-local="static/images/lg_unobs.png" alt="">unobserved future</span>
+          <span><img src="https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@bea7ad38b9cb60a3dfdaf045f2bd612be91e5d85/static/images/lg_train.png" data-local="static/images/lg_train.png" alt="">training only</span>
         </div></div>
       <div><h3 id="ptitle"></h3><p id="ptext"></p></div>
     </div>
     <div class="card figcard reveal">
-      <div class="paper"><img src="https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@5c57346192b0e9e0a4298c7f00432ecbd6eefd52/static/images/method.webp" data-local="static/images/method.webp" alt="World4Scorer architecture: DINOv2 scene tokens, a trajectory generator, a shared latent world model mapping each candidate to a state, score heads, a visual readout, and inertial re-ranking." loading="lazy"></div>
+      <div class="paper"><img src="https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@bea7ad38b9cb60a3dfdaf045f2bd612be91e5d85/static/images/method.webp" data-local="static/images/method.webp" alt="World4Scorer architecture: DINOv2 scene tokens, a trajectory generator, a shared latent world model mapping each candidate to a state, score heads, a visual readout, and inertial re-ranking." loading="lazy"></div>
       <p class="cap"><b>Architecture.</b> (a) The generator proposes 64 candidates; one predictor maps each to a state, score heads read its outcomes, and inertial re-ranking checks continuity with the previous plan. (b) Joint training: the visual readout of the executed query predicts the frozen DINOv2 feature two seconds ahead, while outcome labels supervise all generated and 16 bank candidates.</p>
     </div>
     <div class="ideas">
@@ -466,7 +466,7 @@ footer { margin: 110px 0 40px; text-align: center; color: var(--muted); font-siz
         <p class="readout" id="readout"></p>
       </div>
     </div>
-    <div class="card figcard reveal"><div class="paper" style="max-width:640px;margin:0 auto"><img src="https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@5c57346192b0e9e0a4298c7f00432ecbd6eefd52/static/images/theory.webp" data-local="static/images/theory.webp" alt="Two score surfaces fit the outcome labels but favour different candidates; future constraints remove that disagreement." loading="lazy"></div>
+    <div class="card figcard reveal"><div class="paper" style="max-width:640px;margin:0 auto"><img src="https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@bea7ad38b9cb60a3dfdaf045f2bd612be91e5d85/static/images/theory.webp" data-local="static/images/theory.webp" alt="Two score surfaces fit the outcome labels but favour different candidates; future constraints remove that disagreement." loading="lazy"></div>
       <p class="cap"><b>Complementary supervision.</b> Two score surfaces fit the outcome labels but favour different candidates. Future constraints remove that disagreement while allowing different predictions elsewhere.</p></div>
   </section>
 
