@@ -124,21 +124,6 @@ More scenes, an interactive replay and the film are on the [project page](https:
 | Bench2Drive planner with route point (epoch 14) | 73.27 Driving Score | Hugging Face (coming soon) |
 | OGBench-Cube outcome head `n10_r1` | 73.64% success | Hugging Face (coming soon) |
 
-<details>
-<summary><b>SHA-256 of the files behind the reported numbers</b></summary>
-
-Check a download with `tools/verify_release.py --artifact KIND=PATH`.
-
-| kind | file | sha256 |
-|---|---|---|
-| `navsim_ckpt` | NAVSIM model, epoch 23 | `22604f83dda8a2bd2dd05356fca8457f0c7dc78439f47db396e5c85d74971a44` |
-| `b2d_ckpt` | Bench2Drive model with route point, epoch 14 | `ed3f61a9ac850627c07bbf1d37cc0a9e123d5b41a9c1cecefe820644e14aff5b` |
-| `cube_head` | OGBench-Cube outcome head `n10_r1` | `fce54aa53576587f002a8a515db393bc346b1daee2716630ecf14352fb08bf0e` |
-| `future_bank` | navtrain future targets | `2d64716d8f07a0dbc94e3f240108167acf9c9ef5093635eacb857725a13f0d82` |
-| `dino` | DINOv2 ViT-S/14 reg4 weights | `dca70548ecd7b03ffba6172c4db403014511b5ee6073f9fca72ba9e6e602a25d` |
-
-</details>
-
 ## Getting started
 
 > **Note** The code will be released in this repository once the paper is public on arXiv. The steps below describe that release.
