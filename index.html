@@ -9,10 +9,22 @@
 <meta name="theme-color" content="#f5f4fb" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#07070d" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%233fa9ff'/%3E%3Cstop offset='.5' stop-color='%238b7bff'/%3E%3Cstop offset='1' stop-color='%23ff5fa2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='%230b0b14'/%3E%3Cpath d='M7 24c4-9 10-13 18-15' stroke='url(%23g)' stroke-width='3.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5/400.css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5/500.css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5/600.css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/sora@5/500.css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/sora@5/600.css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/sora@5/700.css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" media="print" onload="this.media='all'">
+<script>
+// Media come from jsDelivr, a CDN mirror of this repository that is much faster than GitHub Pages from some networks;
+// any image, video or script that fails there falls back to the copy on this site.
+window.CDN = "https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@5c57346192b0e9e0a4298c7f00432ecbd6eefd52/";
+document.addEventListener("error", e => { const el = e.target;
+  if (!el || !el.dataset || !el.dataset.local || !el.src || el.src.indexOf(window.CDN) !== 0) return;
+  el.src = el.dataset.local; if (el.tagName === "VIDEO") { el.load(); if (el.dataset.want) el.play().catch(() => {}); } }, true);
+</script>
 <script>try { const t = localStorage.getItem("w4s-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <style>
 /* ---------- theme tokens: light by default, dark from the OS or the toggle ---------- */
@@ -173,7 +185,12 @@ details.abs p { font-size: .96rem; color: var(--muted); margin-top: 12px; }
 
 /* demo */
 .demo { margin-top: 30px; padding: 16px; }
-.demo-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin: 2px 4px 12px; }
+.demo-head { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; margin: 2px 4px 12px; }
+.demo-cap { min-height: 1.6em; }
+@media (max-width: 700px) { .demo-cap { min-height: 3.2em; } }
+.clip-note { grid-column: 1 / -1; margin: 18px 4px 2px; }
+.clip-note h3 { margin: 0 0 4px; font-size: 1.05rem; }
+.clip-note p { margin: 0; color: var(--muted); font-size: .92rem; max-width: 72ch; }
 .demo-head b { font-family: Sora, sans-serif; font-weight: 600; }
 .demo-head span { color: var(--muted); font-size: .92rem; }
 .demo-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 14px; }
@@ -330,7 +347,7 @@ footer { margin: 110px 0 40px; text-align: center; color: var(--muted); font-siz
     <h1><span class="gradtext">World4Scorer</span></h1>
     <p class="sub">Outcome-Grounded World Modeling for Autonomous Driving</p>
     <p class="authors">
-      <span>Jieyuan Pei<sup>1,2,3*‡</sup></span><span>Meiyi Lu<sup>4*</sup></span><span>Sining Ang<sup>5</sup></span><span>Yubo Zhao<sup>6</sup></span><span>Zhangyi Hu<sup>3</sup></span><span>Mingwei Xu<sup>7</sup></span><span>Haokai Ding<sup>8</sup></span><span>Wei Li<sup>9</sup></span><span>Zihan You<sup>10</sup></span><span>Jianwei Zheng<sup>9</sup></span><span>Li Yu<sup>11</sup></span><span>Yifeng Pan<sup>11</sup></span><span>Ji Tao<sup>11</sup></span><span>Rongjunchen Zhang<sup>2</sup></span><span>Yan Wang<sup>1†</sup></span>
+      <span>Jieyuan Pei<sup>1,2,3*‡</sup></span><span>Meiyi Lu<sup>4*</sup></span><span>Sining Ang<sup>5</sup></span><span>Yubo Zhao<sup>6</sup></span><span>Zhangyi Hu<sup>3</sup></span><span>Mingwei Xu<sup>7</sup></span><span>Haokai Ding<sup>8</sup></span><span>Wei Li<sup>9</sup></span><span>Zihan You<sup>1,10</sup></span><span>Jianwei Zheng<sup>9</sup></span><span>Li Yu<sup>11</sup></span><span>Yifeng Pan<sup>11</sup></span><span>Ji Tao<sup>11</sup></span><span>Rongjunchen Zhang<sup>2</sup></span><span>Yan Wang<sup>1†</sup></span>
     </p>
     <p class="affils">
       <span><sup>1</sup>Institute for AI Industry Research (AIR), Tsinghua University</span><span><sup>2</sup>HiThink Research</span><span><sup>3</sup>The Hong Kong University of Science and Technology (Guangzhou)</span><span><sup>4</sup>Zhejiang University</span><span><sup>5</sup>University of Science and Technology of China</span><span><sup>6</sup>SMBU</span><span><sup>7</sup>University of Washington</span><span><sup>8</sup>Mohamed bin Zayed University of Artificial Intelligence</span><span><sup>9</sup>Zhejiang University of Technology</span><span><sup>10</sup>Southeast University</span><span><sup>11</sup>Changan Automobile</span>
@@ -358,7 +375,7 @@ footer { margin: 110px 0 40px; text-align: center; color: var(--muted); font-siz
   <section class="block" id="video">
     <div class="reveal"><div class="kicker">Overview</div><h2>The scorer is a world model</h2>
     <p class="lead">A generate-and-select planner proposes many trajectories and must pick one it has never seen executed. World4Scorer predicts a state for every candidate, trains those states with simulator outcomes, and anchors the shared predictor with the one future the driving log actually recorded.</p></div>
-    <div class="video-frame reveal"><video id="film" controls playsinline preload="metadata" poster="static/images/film_poster.jpg" aria-label="World4Scorer overview film, 95 seconds, narrated with subtitles"><source src="static/videos/world4scorer_film.mp4" type="video/mp4"></video></div>
+    <div class="video-frame reveal"><video id="film" controls playsinline preload="none" poster="static/images/film_poster.jpg" data-mp4="static/videos/world4scorer_film.mp4" data-hls="static/videos/film/film.m3u8" aria-label="World4Scorer overview film, 95 seconds, narrated with subtitles"></video></div>
     <div class="tldr">
       <div class="reveal">
         <p>Driving logs record the future of only the executed trajectory, so matching the logged future can leave predictions for the alternatives unconstrained. A simulator, in contrast, can label the outcome of every candidate.</p>
@@ -379,9 +396,9 @@ footer { margin: 110px 0 40px; text-align: center; color: var(--muted); font-siz
     <div class="reveal"><div class="kicker">Live demo</div><h2>Watch it score 64 plans every half second</h2>
     <p class="lead">A replay of World4Scorer on recorded NAVSIM drives. Every 0.5 s the generator proposes 64 trajectories; the predicted score colours each one, and the purple plan is the scorer's choice. Drag the timeline, change the speed, or switch layers.</p></div>
     <div class="card demo reveal d1">
-      <div class="demo-head"><div><b id="demo-title"></b> <span id="demo-sub"></span></div><div class="seg" id="demo-scenes" hidden></div></div>
+      <div class="demo-head"><div class="seg" id="demo-scenes"></div><div class="demo-cap"><b id="demo-title"></b> <span id="demo-sub"></span></div></div>
       <div class="demo-grid">
-        <div class="screen cam"><video id="demo-video" muted playsinline preload="auto"></video><span class="tag">front camera</span><span class="hud" id="demo-hud">0 km/h</span></div>
+        <div class="screen cam"><video id="demo-video" muted playsinline preload="auto" data-want="1"></video><span class="tag">front camera</span><span class="hud" id="demo-hud">0 km/h</span></div>
         <div class="screen bev"><canvas id="demo-canvas"></canvas><span class="tag">bird's-eye view · heading up</span></div>
       </div>
       <div class="controls">
@@ -406,19 +423,19 @@ footer { margin: 110px 0 40px; text-align: center; color: var(--muted); font-siz
     <p class="lead">Three ways to train the scorer of a generate-and-select planner, and the architecture that combines outcome labels with future prediction.</p></div>
     <div class="tabs reveal" id="ptabs"><button class="on" data-i="0">(a) Generate and select</button><button data-i="1">(b) World-model planning</button><button data-i="2">(c) World4Scorer</button></div>
     <div class="card paradigm reveal">
-      <div class="paper pfig"><img id="pimg" src="static/images/paradigm_a.webp" alt="Generate and select">
+      <div class="paper pfig"><img id="pimg" src="https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@5c57346192b0e9e0a4298c7f00432ecbd6eefd52/static/images/paradigm_a.webp" data-local="static/images/paradigm_a.webp" alt="Generate and select">
         <div class="plegend">
-          <span><img src="static/images/lg_outcome.png" alt="">outcome supervision</span>
-          <span><img src="static/images/lg_future.png" alt="">future-prediction supervision</span>
-          <span><img src="static/images/lg_sim.png" alt="">simulator label</span>
-          <span><img src="static/images/lg_obs.png" alt="">observed future</span>
-          <span><img src="static/images/lg_unobs.png" alt="">unobserved future</span>
-          <span><img src="static/images/lg_train.png" alt="">training only</span>
+          <span><img src="https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@5c57346192b0e9e0a4298c7f00432ecbd6eefd52/static/images/lg_outcome.png" data-local="static/images/lg_outcome.png" alt="">outcome supervision</span>
+          <span><img src="https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@5c57346192b0e9e0a4298c7f00432ecbd6eefd52/static/images/lg_future.png" data-local="static/images/lg_future.png" alt="">future-prediction supervision</span>
+          <span><img src="https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@5c57346192b0e9e0a4298c7f00432ecbd6eefd52/static/images/lg_sim.png" data-local="static/images/lg_sim.png" alt="">simulator label</span>
+          <span><img src="https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@5c57346192b0e9e0a4298c7f00432ecbd6eefd52/static/images/lg_obs.png" data-local="static/images/lg_obs.png" alt="">observed future</span>
+          <span><img src="https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@5c57346192b0e9e0a4298c7f00432ecbd6eefd52/static/images/lg_unobs.png" data-local="static/images/lg_unobs.png" alt="">unobserved future</span>
+          <span><img src="https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@5c57346192b0e9e0a4298c7f00432ecbd6eefd52/static/images/lg_train.png" data-local="static/images/lg_train.png" alt="">training only</span>
         </div></div>
       <div><h3 id="ptitle"></h3><p id="ptext"></p></div>
     </div>
     <div class="card figcard reveal">
-      <div class="paper"><img src="static/images/method.webp" alt="World4Scorer architecture: DINOv2 scene tokens, a trajectory generator, a shared latent world model mapping each candidate to a state, score heads, a visual readout, and inertial re-ranking." loading="lazy"></div>
+      <div class="paper"><img src="https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@5c57346192b0e9e0a4298c7f00432ecbd6eefd52/static/images/method.webp" data-local="static/images/method.webp" alt="World4Scorer architecture: DINOv2 scene tokens, a trajectory generator, a shared latent world model mapping each candidate to a state, score heads, a visual readout, and inertial re-ranking." loading="lazy"></div>
       <p class="cap"><b>Architecture.</b> (a) The generator proposes 64 candidates; one predictor maps each to a state, score heads read its outcomes, and inertial re-ranking checks continuity with the previous plan. (b) Joint training: the visual readout of the executed query predicts the frozen DINOv2 feature two seconds ahead, while outcome labels supervise all generated and 16 bank candidates.</p>
     </div>
     <div class="ideas">
@@ -448,7 +465,7 @@ footer { margin: 110px 0 40px; text-align: center; color: var(--muted); font-siz
         <p class="readout" id="readout"></p>
       </div>
     </div>
-    <div class="card figcard reveal"><div class="paper" style="max-width:640px;margin:0 auto"><img src="static/images/theory.webp" alt="Two score surfaces fit the outcome labels but favour different candidates; future constraints remove that disagreement." loading="lazy"></div>
+    <div class="card figcard reveal"><div class="paper" style="max-width:640px;margin:0 auto"><img src="https://cdn.jsdelivr.net/gh/GuobaPei/World4Scorer@5c57346192b0e9e0a4298c7f00432ecbd6eefd52/static/images/theory.webp" data-local="static/images/theory.webp" alt="Two score surfaces fit the outcome labels but favour different candidates; future constraints remove that disagreement." loading="lazy"></div>
       <p class="cap"><b>Complementary supervision.</b> Two score surfaces fit the outcome labels but favour different candidates. Future constraints remove that disagreement while allowing different predictions elsewhere.</p></div>
   </section>
 
@@ -501,11 +518,6 @@ footer { margin: 110px 0 40px; text-align: center; color: var(--muted); font-siz
 </main>
 <div class="tip" id="tip" role="status" aria-live="polite"></div>
 
-<script src="static/data/scene_lv.js"></script>
-<script src="static/data/scene_lvl.js"></script>
-<script src="static/data/scene_lvb.js"></script>
-<script src="static/data/scene_bos.js"></script>
-<script src="static/data/scene_pit.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script>
 // Numbers as reported in the paper (Tables 1, 4 and 5); checked against static/data/results.json.
@@ -530,7 +542,13 @@ const CLIPS = [
   {src: "static/videos/b2d_2715.mp4", title: "A taxi cuts into the lane", text: "Bench2Drive · StaticCutIn. Closed loop: the planner's own choices move the car. Driving score 100. Every frame rendered by CARLA, played at 1.5× speed."},
   {src: "static/videos/b2d_17752.mp4", title: "A pedestrian steps into the road at night", text: "Bench2Drive · DynamicObjectCrossing, at night. Closed loop, driving score 100. Played at 1.5× speed."},
   {src: "static/videos/b2d_3048.mp4", title: "Merging into slow highway traffic", text: "Bench2Drive · MergerIntoSlowTraffic. Closed loop, driving score 100. Played at 1.5× speed; the wait in traffic is fast-forwarded (9×).", wide: true, ar: "1200 / 432"},
-  {src: "static/videos/cube_pair.mp4", title: "OGBench-Cube: outcome scoring fixes a failed placement", text: "Same frozen LeWM world model and planning budget. Left: LeWM alone fails to place the cube. Right: with our outcome score, the placement succeeds.", wide: true}
+  {note: "<h3>OGBench-Cube: the same planner, two costs</h3><p>Each pair plans the same seed-42 episode from the same start state with the frozen LeWM world model and the same CEM budget. Left: LeWM\u2019s own cost. Right: LeWM\u2019s cost plus our outcome score. Shown are the six episodes of this seed where only the outcome score succeeds; two episodes go the other way (LeWM 36/50, ours 40/50). Over 11 seeds \u00d7 50 episodes, success rises from 68.9% to 73.6%.</p>"},
+  {src: "static/videos/cube_ep638.mp4", title: "Episode 638", text: "LeWM alone: fail, block 21.3 cm from the goal. With the outcome score: success at step 48 (3.4 cm).", ar: "1080 / 564"},
+  {src: "static/videos/cube_ep679.mp4", title: "Episode 679", text: "LeWM alone: fail, block 41.9 cm from the goal. With the outcome score: success at step 47 (2.5 cm).", ar: "1080 / 564"},
+  {src: "static/videos/cube_ep5132.mp4", title: "Episode 5132", text: "LeWM alone: fail, block 39.9 cm from the goal. With the outcome score: success at step 40 (2.9 cm).", ar: "1080 / 564"},
+  {src: "static/videos/cube_ep6316.mp4", title: "Episode 6316", text: "LeWM alone: fail, block 18.6 cm from the goal. With the outcome score: success at step 23 (3.4 cm).", ar: "1080 / 564"},
+  {src: "static/videos/cube_ep7005.mp4", title: "Episode 7005", text: "LeWM alone: fail, block 32.9 cm from the goal. With the outcome score: success at step 47 (4.0 cm).", ar: "1080 / 564"},
+  {src: "static/videos/cube_ep7580.mp4", title: "Episode 7580", text: "LeWM alone: fail, block 5.4 cm from the goal. With the outcome score: success at step 8 (3.8 cm).", ar: "1080 / 564"}
 ];
 
 (() => {
@@ -660,7 +678,10 @@ const CLIPS = [
 
   /* ---------------- live replay: camera video + canvas BEV on one clock ---------------- */
   (function demo() {
-    const scenes = Object.values(window.W4S_SCENES || {}); if (!scenes.length) return;
+    const SCENES = [["lv", "Vegas · hotel loop"], ["lvl", "Vegas · left turn"], ["lvb", "Vegas · traffic"], ["bos", "Boston · rain"], ["pit", "Pittsburgh · right turn"]];
+    const loadScript = path => new Promise((res, rej) => { const s = document.createElement("script"); s.src = CDN + path; s.onload = res;
+      s.onerror = () => { const t = document.createElement("script"); t.src = path; t.onload = res; t.onerror = rej; document.head.appendChild(t); }; document.head.appendChild(s); });
+    const got = {}, scene = k => got[k] || (got[k] = loadScript(`static/data/scene_${k}.js`).then(() => (window.W4S_SCENES || {})[k]));
     const video = $("#demo-video"), cv = $("#demo-canvas"), ctx = cv.getContext("2d");
     const lay = {cands: true, human: true, agents: true}, DENSE = 30;
     let S, T, K, END, dense, vyaw, playing = false, speed = 1, clock = 0, lastNow = 0, retry = 0;
@@ -676,14 +697,15 @@ const CLIPS = [
       const ker = []; for (let i = -27; i <= 27; i++) ker.push(Math.exp(-0.5 * (i / 9) ** 2));
       const ks = ker.reduce((a, b) => a + b, 0);
       vyaw = dense.map((_, i) => ker.reduce((a, w, j) => a + w * dense[Math.max(0, Math.min(dense.length - 1, i + j - 27))][2], 0) / ks);
-      video.src = `static/videos/demo_${S.key}_cam.mp4`; video.playbackRate = speed;
+      video.poster = `static/images/posters/demo_${S.key}_cam.webp`; video.dataset.local = `static/videos/demo_${S.key}_cam.mp4`;
+      video.src = CDN + video.dataset.local; video.playbackRate = speed;
       $("#demo-title").textContent = S.title; $("#demo-sub").textContent = S.subtitle || "";
       $$("#demo-scenes button").forEach(b => b.classList.toggle("on", b.dataset.k === S.key));
       draw(); if (playing) video.play().catch(() => {});
     }
     const poly = (pts, P) => { ctx.beginPath(); pts.forEach(([x, y], k) => { const [a, b] = P(x, y); k ? ctx.lineTo(a, b) : ctx.moveTo(a, b); }); };
     function draw() {
-      const w = cv.width, h = cv.height; if (!w || !h) return;
+      const w = cv.width, h = cv.height; if (!w || !h || !S) return;
       const t = clock, s = sOf(t), i = Math.min(dense.length - 1, Math.round(t * DENSE));
       const e = egoAt(s), psi = vyaw[i], sc = h / 42, ox = w / 2, oy = h * 0.7, sn = Math.sin(psi), cs = Math.cos(psi);
       const P = (x, y) => { const dx = x - e[0], dy = y - e[1]; return [ox + (dx * sn - dy * cs) * sc, oy - (dx * cs + dy * sn) * sc]; };
@@ -756,11 +778,16 @@ const CLIPS = [
     $$("#demo-speed button").forEach(b => b.addEventListener("click", () => { $$("#demo-speed button").forEach(x => x.classList.remove("on")); b.classList.add("on");
       speed = +b.dataset.v; video.playbackRate = speed; }));
     [["#lay-cands", "cands"], ["#lay-human", "human"], ["#lay-agents", "agents"]].forEach(([sel, k]) => $(sel).addEventListener("change", e => { lay[k] = e.target.checked; draw(); }));
-    if (scenes.length > 1) {
-      const box = $("#demo-scenes"); box.hidden = false;
-      scenes.forEach(sc => { const b = document.createElement("button"); b.dataset.k = sc.key; b.textContent = sc.title; b.addEventListener("click", () => load(sc)); box.appendChild(b); });
-    }
-    load(scenes[0]);
+    let want = null; const warm = [];
+    const pick = k => { want = k; $$("#demo-scenes button").forEach(b => b.classList.toggle("on", b.dataset.k === k));
+      scene(k).then(sc => { if (sc && want === k) load(sc); }); };
+    SCENES.forEach(([k, title]) => { const b = document.createElement("button"); b.dataset.k = k; b.textContent = title; b.addEventListener("click", () => pick(k)); $("#demo-scenes").appendChild(b); });
+    pick(SCENES[0][0]);
+    // once the first scene is up, fetch the others (data and camera) one by one, so switching is instant
+    scene(SCENES[0][0]).then(() => SCENES.slice(1).reduce((chain, [k]) => chain.then(() => scene(k)).then(() => new Promise(res => {
+      const v = document.createElement("video"); v.muted = true; v.preload = "auto"; v.dataset.local = `static/videos/demo_${k}_cam.mp4`;
+      v.addEventListener("canplaythrough", res, {once: true}); v.addEventListener("error", res, {once: true}); setTimeout(res, 8000);
+      v.src = CDN + v.dataset.local; warm.push(v); })), Promise.resolve()));
     new ResizeObserver(resize).observe(cv);
     new IntersectionObserver(es => { const vis = es[0].isIntersecting; if (vis && !playing && !reduce) play(); else if (!vis && playing) pause(); }, {threshold: 0.35}).observe(cv);
   })();
@@ -771,7 +798,7 @@ const CLIPS = [
     ["World-model planning", "A world model predicts the future to inform the choice. Its supervision comes from the logged future, which exists only for the trajectory that was actually driven; predictions for the alternatives stay unconstrained.", "static/images/paradigm_b.webp"],
     ["World4Scorer", "The scorer itself is the world model: one predictor gives every candidate a state. Outcome labels supervise the states of all candidates, and the observed future anchors the shared predictor during training.", "static/images/paradigm_c.webp"]];
   const setPar = i => { const img = $("#pimg"); img.style.opacity = 0;
-    setTimeout(() => { img.src = PAR[i][2]; img.alt = PAR[i][0]; img.style.opacity = 1; }, 180);
+    setTimeout(() => { img.dataset.local = PAR[i][2]; img.src = CDN + PAR[i][2]; img.alt = PAR[i][0]; img.style.opacity = 1; }, 180);
     $("#ptitle").textContent = PAR[i][0]; $("#ptext").textContent = PAR[i][1];
     $$("#ptabs button").forEach((b, k) => b.classList.toggle("on", k === i)); };
   $$("#ptabs button").forEach((b, k) => b.addEventListener("click", () => setPar(k))); setPar(0);
@@ -979,17 +1006,34 @@ const CLIPS = [
 
   /* ---------------- gallery ---------------- */
   CLIPS.forEach(c => {
+    if (c.note) { const d = document.createElement("div"); d.className = "clip-note reveal"; d.innerHTML = c.note; $("#clips").appendChild(d); io.observe(d); return; }
     const f = document.createElement("figure"); f.className = "card clip reveal" + (c.wide ? " wide" : "");
     const v = document.createElement("video"); v.muted = v.defaultMuted = true; v.loop = true; v.setAttribute("playsinline", ""); v.preload = "none"; v.dataset.src = c.src; v.setAttribute("aria-label", c.title); if (c.ar) v.style.aspectRatio = c.ar;
+    v.poster = "static/images/posters/" + c.src.split("/").pop().replace(".mp4", ".webp");
     const m = document.createElement("div"); m.className = "meta"; const h = document.createElement("h3"); h.textContent = c.title; const p = document.createElement("p"); p.textContent = c.text;
     m.append(h, p); f.append(v, m); $("#clips").appendChild(f); io.observe(f);
   });
   // clips play while on screen; a play() the browser aborted (background-tab power saving) is retried on return
-  const onScreen = new Set();
+  const onScreen = new Set(), fetchClip = v => { if (!v.dataset.local) { v.dataset.local = v.dataset.src; v.preload = "auto"; v.src = CDN + v.dataset.src; } };
+  const near = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { fetchClip(e.target); near.unobserve(e.target); } }), {rootMargin: "900px 0px"});
   const vio = new IntersectionObserver(es => es.forEach(e => { const v = e.target;
-    if (e.isIntersecting) { onScreen.add(v); if (!v.src) v.src = v.dataset.src; if (!reduce) v.play().catch(() => {}); } else { onScreen.delete(v); v.pause(); } }), {threshold: 0.25});
+    if (e.isIntersecting) { onScreen.add(v); fetchClip(v); v.dataset.want = "1"; if (!reduce) v.play().catch(() => {}); } else { onScreen.delete(v); delete v.dataset.want; v.pause(); } }), {threshold: 0.25});
   document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && !reduce) onScreen.forEach(v => v.play().catch(() => {})); });
-  $$("#clips video").forEach(v => { vio.observe(v); if (reduce) v.controls = true; });
+  $$("#clips video").forEach(v => { near.observe(v); vio.observe(v); if (reduce) v.controls = true; });
+
+  /* ---------------- the film: HLS from the CDN, the MP4 here as fallback ---------------- */
+  (function film() {
+    const v = $("#film"); if (!v) return; let started = false, wantPlay = false;
+    const mp4 = () => { v.src = v.dataset.mp4; if (wantPlay) v.play().catch(() => {}); };
+    const start = () => { if (started) return; started = true;
+      const s = document.createElement("script"); s.src = "https://cdn.jsdelivr.net/npm/hls.js@1.5/dist/hls.light.min.js";
+      s.onload = () => { const H = window.Hls; if (!H || !H.isSupported()) return mp4();
+        const h = new H({maxBufferLength: 40}); h.on(H.Events.ERROR, (ev, d) => { if (d.fatal) { h.destroy(); mp4(); } });
+        h.on(H.Events.MANIFEST_PARSED, () => { if (wantPlay) v.play().catch(() => {}); }); h.loadSource(CDN + v.dataset.hls); h.attachMedia(v); };
+      s.onerror = mp4; document.head.appendChild(s); };
+    v.addEventListener("play", () => { wantPlay = true; start(); });
+    new IntersectionObserver((es, o) => { if (es.some(e => e.isIntersecting)) { start(); o.disconnect(); } }, {rootMargin: "700px 0px"}).observe(v);
+  })();
 
   /* ---------------- math + copy ---------------- */
   addEventListener("load", () => { if (!window.katex) return;
