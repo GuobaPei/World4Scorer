@@ -4,9 +4,9 @@
 
 ### Outcome-Grounded World Modeling for Autonomous Driving
 
-[![arXiv](https://img.shields.io/badge/arXiv-coming%20soon-b31b1b.svg?logo=arxiv&logoColor=white)](https://guobapei.github.io/World4Scorer/)
-[![Project Page](https://img.shields.io/badge/Project-Page-7c6cff.svg?logo=googlechrome&logoColor=white)](https://guobapei.github.io/World4Scorer/)
-[![Film](https://img.shields.io/badge/Film-95%20s-ec4e9b.svg?logo=youtube&logoColor=white)](https://guobapei.github.io/World4Scorer/#video)
+[![arXiv](https://img.shields.io/badge/arXiv-coming%20soon-b31b1b.svg?logo=arxiv&logoColor=white)](https://world4scorer.github.io/)
+[![Project Page](https://img.shields.io/badge/Project-Page-7c6cff.svg?logo=googlechrome&logoColor=white)](https://world4scorer.github.io/)
+[![Film](https://img.shields.io/badge/Film-95%20s-ec4e9b.svg?logo=youtube&logoColor=white)](https://world4scorer.github.io/#video)
 [![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Weights-ffd21e.svg)](https://huggingface.co/pei2333/World4Scorer)
 [![NAVSIM-v2](https://img.shields.io/badge/NAVSIM--v2-93.0%20EPDMS-2ea44f.svg)](#results)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
@@ -21,11 +21,11 @@ Zihan You<sup>1,10</sup>, Jianwei Zheng<sup>9</sup>, Li Yu<sup>11</sup>, Yifeng 
 
 https://github.com/user-attachments/assets/0f29cac4-bd00-41c2-afc4-e13e4866d934
 
-<p align="center"><sub>The 95-second overview film, with sound. Also on the <a href="https://guobapei.github.io/World4Scorer/#video">project page</a>.</sub></p>
+<p align="center"><sub>The 95-second overview film, with sound. Also on the <a href="https://world4scorer.github.io/#video">project page</a>.</sub></p>
 
 ## News
 
-- **2026/09** Paper, [project page](https://guobapei.github.io/World4Scorer/) and a 95-second overview film are online.
+- **2026/09** Paper, [project page](https://world4scorer.github.io/) and a 95-second overview film are online.
 - **Coming soon** Code in this repository and checkpoints on [Hugging Face](https://huggingface.co/pei2333/World4Scorer), once the paper is public on arXiv.
 
 ## Highlights
@@ -55,7 +55,7 @@ The generator proposes 64 candidates. One predictor maps each candidate to a sta
 </tr>
 </table>
 
-More scenes, an interactive replay and the film are on the [project page](https://guobapei.github.io/World4Scorer/).
+More scenes, an interactive replay and the film are on the [project page](https://world4scorer.github.io/).
 
 ## Results
 
