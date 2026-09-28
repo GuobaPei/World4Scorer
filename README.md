@@ -19,10 +19,9 @@ Zihan You<sup>1,10</sup>, Jianwei Zheng<sup>9</sup>, Li Yu<sup>11</sup>, Yifeng 
 
 </div>
 
-<p align="center">
-  <a href="https://guobapei.github.io/World4Scorer/#video"><img src="assets/hero.webp" width="92%" alt="A planner imagines 64 ways to drive; World4Scorer scores every one"></a>
-  <br><sub>▶ <a href="https://guobapei.github.io/World4Scorer/#video">Watch the 95-second film</a></sub>
-</p>
+https://github.com/user-attachments/assets/0f29cac4-bd00-41c2-afc4-e13e4866d934
+
+<p align="center"><sub>The 95-second overview film, with sound. Also on the <a href="https://guobapei.github.io/World4Scorer/#video">project page</a>.</sub></p>
 
 ## News
 
