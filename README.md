@@ -19,7 +19,7 @@
 
 </div>
 
-https://github.com/user-attachments/assets/0f29cac4-bd00-41c2-afc4-e13e4866d934
+https://github.com/user-attachments/assets/7f7e345d-5c78-4db3-aef1-135b5921842b
 
 <p align="center"><sub>The 95-second overview film, with sound. Also on the <a href="https://world4scorer.github.io/#video">project page</a>.</sub></p>
 
