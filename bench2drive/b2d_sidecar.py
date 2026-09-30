@@ -14,7 +14,6 @@ _DINO = os.environ.get("DINO_WEIGHTS", os.path.join(
 import numpy as np
 
 sys.path.insert(0, _B2D)
-from b2d_dataset import B2DDataset
 
 DATA = sys.argv[1] if len(sys.argv) > 1 else _DATA
 INDEX = sys.argv[2] if len(sys.argv) > 2 else os.path.join(_DATA, "samples.jsonl")
@@ -33,9 +32,6 @@ fut = np.zeros((n, 8, 3), np.float32)
 cmd = np.zeros(n, np.int16)
 ok = np.zeros(n, bool)
 tokens = []
-
-ds = B2DDataset.__new__(B2DDataset)   # reuse loading code paths without split logic
-ds.root, ds.rows, ds.val = DATA, rows, False
 
 for i, r in enumerate(rows):
     clip, t = r["clip"], r["t"]

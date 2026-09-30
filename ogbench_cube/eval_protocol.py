@@ -1,14 +1,11 @@
 """LeWM protocol eval with a pluggable candidate scorer.
 
-This is repo/eval.py with two additions and no other change:
-  1. ``cost.mode`` selects which scorer the CEM loop calls
-     (``lewm`` = the released hand-written cost, i.e. the anchor).
-  2. per-episode successes are written to a json next to the log so two
-     scorers can be compared pairwise on the same episodes.
-
-Everything the protocol touches -- solver, CEM iterations/population, MPC
-receding horizon, the eval episode set, the success rule -- comes from the
-untouched config files under repo/config/eval.
+Adapted from le-wm eval.py (MIT; see NOTICE and LICENSE-le-wm). Two functional
+additions: cost.mode selects the scorer the CEM loop calls (lewm = the released
+cost), and per-episode results are written to <out_dir>/result.json instead of the
+text log and videos. conf/cube.yaml is le-wm config/eval/cube.yaml plus the cost
+group and output paths; conf/solver and conf/launcher are unchanged;
+reproduce_cube.sh sets solver.n_steps=10.
 """
 
 import os

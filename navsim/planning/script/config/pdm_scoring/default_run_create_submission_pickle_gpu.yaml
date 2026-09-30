@@ -11,7 +11,7 @@ defaults:
   - default_common
   - default_evaluation
   - ddp
-  - agent: constant_velocity_agent
+  - agent: drivoR
   - _self_
   - override train_test_split: navtest
 

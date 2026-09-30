@@ -45,8 +45,9 @@ def build(scenes, k=64):
         traj = np.asarray(sc["trajectories_relative"], np.float32)[:, :8, :3]
         s = score_matrix(sc["scores"], len(traj))
         keep = np.flatnonzero(np.isfinite(traj).all((1, 2)) & np.isfinite(s).all(1))
-        # ponytail: first k finite candidates in file order; our pack ordered candidate
-        # families before truncating, which only matters for scenes with more than k.
+        # First k finite candidates in file order. The pack behind the released checkpoint
+        # ordered candidate families before truncating; this differs only for scenes with
+        # more than k candidates.
         keep = keep[:k]
         c = np.zeros((k, 8, 3), np.float32); c[:len(keep)] = traj[keep]
         y = np.zeros((k, len(SCORE_KEYS)), np.float32); y[:len(keep)] = s[keep]

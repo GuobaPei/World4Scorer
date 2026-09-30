@@ -67,8 +67,7 @@ def do_clip(clip):
                 cand = []
                 live = set()
                 for b in ak.get("bounding_boxes", []):
-                    # allow-list: signs/lights are not obstacles (and the old
-                    # ext[0] < 0.2 cut dropped every pedestrian, ext0 = 0.188)
+                    # allow-list: only vehicles and walkers are obstacles (not signs or lights)
                     if b.get("class") not in ("vehicle", "walker"):
                         continue
                     ext = b.get("extent") or [0, 0, 0]
@@ -81,8 +80,7 @@ def do_clip(clip):
                     if d2 > RADIUS * RADIUS:
                         continue
                     # rotation[2] is the raw CARLA yaw, NOT the ego's `theta`
-                    # compass: the two differ by exactly +90 deg. Applying the
-                    # theta formula here laid every car broadside.
+                    # compass: the two differ by exactly +90 deg.
                     byaw = wrap(-math.radians(float(b["rotation"][2])) - th)
                     cand.append((d2, rx, ry, byaw, ext[0], ext[1]))
                     aid = b.get("id")

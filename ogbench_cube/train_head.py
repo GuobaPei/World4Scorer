@@ -56,7 +56,6 @@ def stack(groups):
         actions=torch.stack([g["actions"] for g in groups]).float(),
         utility=torch.stack([-g["task_cost"] for g in groups]).float(),
         episode=torch.tensor([g["episode"] for g in groups]),
-        cem_iter=torch.tensor([g["cem_iter"] for g in groups]),
     )
 
 

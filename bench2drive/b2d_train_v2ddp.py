@@ -87,8 +87,8 @@ def main():
     n_par = sum(p.numel() for p in model.parameters())
     print(f"[b2d] params {n_par/1e6:.2f}M", flush=True)
     if args.init:
-        # Warm start. strict=True on purpose: a width mismatch here is exactly
-        # the silent failure this whole change can produce, so it must throw.
+        # Warm start: missing parameters raise (assert below); a shape mismatch
+        # raises in load_state_dict regardless of strict.
         ck = torch.load(args.init, map_location="cpu", weights_only=False)
         sd = ck["state_dict"] if "state_dict" in ck else ck
         sd = {k: v for k, v in sd.items() if not k.startswith("realized_bank")}
@@ -225,8 +225,7 @@ def main():
     if args.resume:
         cands = [p for p in (f"{args.out}/last.ckpt", f"{args.out}/step_last.ckpt")
                  if os.path.exists(p)]
-        # a resume silently overwriting a warm start is the failure that
-        # poisoned an earlier baseline; make the collision loud.
+        # a resume would silently overwrite the warm start; make the collision loud.
         assert not (cands and args.init), (
             f"--resume found {cands[0]} and --init {args.init} was also given; "
             "the resume would overwrite the warm start. Pick one.")

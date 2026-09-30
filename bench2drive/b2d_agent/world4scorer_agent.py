@@ -7,7 +7,7 @@ route re-ranking adds a route-agreement bonus to the scores, and command retenti
 retires a route node only once the ego has passed it. A PID pair tracks the selected
 trajectory every tick. Cameras: the Bench2Drive training rig (4 x 1600x900).
 
-Config json: {"ckpt": "<route-point checkpoint>", "save": "<optional dir for overlay frames>"}
+Config json: {"ckpt": "<route-point checkpoint>"}
 """
 import json
 import math
@@ -89,16 +89,12 @@ class World4ScorerAgent(AutonomousAgent):
 
     def setup(self, path_to_conf_file):
         self.track = Track.SENSORS
-        # the leaderboard passes "<cfg>+<tag>" and APPENDS another +<tag> every route --
-        # take the last segment only, truncated (Errno 36 after a few routes otherwise)
+        # the leaderboard passes "<cfg>+<tag>" and APPENDS another +<tag> every route;
+        # the config file is the first segment
         segs = path_to_conf_file.split("+")
         cfg = json.load(open(segs[0]))
         if not os.path.isabs(cfg["ckpt"]):  # relative paths are repo-root relative
             cfg["ckpt"] = os.path.join(_REPO, cfg["ckpt"])
-        route_tag = (segs[-1] if len(segs) > 1 else "route")[:80]
-        self.save_dir = os.path.join(cfg["save"], route_tag) if cfg.get("save") else ""
-        if self.save_dir:
-            os.makedirs(self.save_dir, exist_ok=True)
         if cfg["ckpt"] not in _MODEL_CACHE:
             _MODEL_CACHE[cfg["ckpt"]] = self._load(cfg["ckpt"])
         self.model = _MODEL_CACHE[cfg["ckpt"]]
@@ -212,8 +208,6 @@ class World4ScorerAgent(AutonomousAgent):
             k[i + 1, :2] = pose[:2] + R @ traj[i, :2]
             k[i + 1, 2] = pose[2] + traj[i, 2]
         self.plan, self.plan_t0 = k, timestamp
-        if self.save_dir:   # every replan (0.5 s) — dense enough for demo video
-            self._save_overlay(input_data, traj, bi, float(score[bi]), cmd)
 
     def _route_tp(self, pose):
         """The route target point handed to the model.
@@ -221,7 +215,7 @@ class World4ScorerAgent(AutonomousAgent):
         Same polyline the leaderboard interpolates at 1 m (`_dense_plan_world`),
         same route_target() the sidecar calls when it builds the training
         vector, same math frame -- `pose` is already [x, -y, -yaw] here, which
-        is the frame b2d_sidecar computes in.
+        is the frame b2d_route_tp_sidecar computes in.
         """
         if self._tp_route is None:
             plan = getattr(self, "_dense_plan_world", None) or self._global_plan_world_coord
@@ -311,8 +305,7 @@ class World4ScorerAgent(AutonomousAgent):
         speed = math.hypot(v.x, v.y)
         p_now, p_next = self._plan_at(tau), self._plan_at(tau + 0.5)
         c, s = math.cos(pose[2]), math.sin(pose[2])
-        # forward component only: a lateral offset is not speed. Using the 2-D
-        # magnitude let a standing-still candidate read as ~1 m/s.
+        # forward component only: a lateral offset is not speed.
         _dp = p_next - p_now
         desired = max(0.0, c * _dp[0] + s * _dp[1]) * DESIRED_GAIN
         aim_d = AIM_FAR if speed > AIM_SWITCH else AIM_NEAR
@@ -344,28 +337,6 @@ class World4ScorerAgent(AutonomousAgent):
         elif self.still_ticks > CREEP_AFTER / DT:
             self.creep_left = 60
         return ctrl
-
-    def _save_overlay(self, input_data, traj, bi, sc, cmd):
-        import cv2
-        fid, fx, cx, cy = "rgb_front", 1142.518, 800.0, 450.0
-        cam = dict(x=0.80, y=0.0, z=1.60, yaw=0.0)
-        f = input_data[fid][1][:, :, :3].copy()  # BGRA -> BGR
-        cyw, syw = math.cos(math.radians(cam["yaw"])), math.sin(math.radians(cam["yaw"]))
-        pts = []
-        for i in range(8):
-            lx, ly = traj[i, 0] - cam["x"], traj[i, 1] - cam["y"]
-            xc, yc = cyw * lx + syw * ly, -syw * lx + cyw * ly
-            if xc < 1.0:
-                continue
-            pts.append((int(cx - fx * yc / xc), int(cy + fx * (cam["z"] - 0.2) / xc)))
-        for p1, p2 in zip(pts[:-1], pts[1:]):
-            cv2.line(f, p1, p2, (0, 255, 0), 3)
-        vv = self.hero_actor.get_velocity()
-        cv2.putText(f, f"t={self.tick * DT:6.1f}s v={math.hypot(vv.x, vv.y) * 3.6:4.1f}km/h "
-                       f"cmd={cmd} cand#{bi} s={sc:.3f}", (20, 40),
-                    cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 255, 255), 2)
-        cv2.imwrite(f"{self.save_dir}/{self.tick:06d}.jpg",
-                    cv2.resize(f, (800, 450)), [cv2.IMWRITE_JPEG_QUALITY, 80])
 
     # ------------------------------------------------------------------ main
     def run_step(self, input_data, timestamp):

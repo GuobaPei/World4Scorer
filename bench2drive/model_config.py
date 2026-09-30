@@ -10,12 +10,6 @@ from typing import Any, Dict
 import numpy as np
 import torch
 from omegaconf import OmegaConf
-from PIL import Image as PILImage
-
-PIL_BICUBIC = getattr(PILImage, "Resampling", PILImage).BICUBIC
-# camera stacking order of the NAVSIM feature builder, 4-camera case
-CAM_ORDER_4 = ["CAM_F0", "CAM_B0", "CAM_L0", "CAM_R0"]
-MODEL_IMAGE_SIZE_WH = (1148, 672)   # (width, height)
 
 
 def build_b2d_config(dino_weights_path: str, realized_future_emb_path: str = "",
@@ -94,7 +88,6 @@ def build_b2d_config(dino_weights_path: str, realized_future_emb_path: str = "",
 
         # ---- DrivoR flags (not used in forward) ----
         "b2d": False,
-        "shared_refiner": False,
 
         # ---- future loss (training only): weight and gradient scale into the predictor ----
         "realized_future_emb_path": realized_future_emb_path,

@@ -4,7 +4,8 @@
 For every navtrain token, take the front camera two seconds ahead (frame index 7,
 the current frame being 3), encode it with the frozen pretrained DINOv2 ViT-S/14 with
 registers (the same initial weights as the planner's encoder, never LoRA-updated),
-mean-pool the patch tokens to a 384-d vector, and store {token: fp16 tensor}.
+mean-pool all output tokens (class, register and patch tokens) to a 384-d vector,
+and store {token: fp16 tensor}.
 
 These vectors are the targets of the visual readout for the executed (logged)
 trajectory; generated and bank candidates are supervised by simulator outcomes.
@@ -47,7 +48,7 @@ def main():
     from navsim.common.dataclasses import SensorConfig
 
     root = Path(args.openscene)
-    meta, blob = root / "meta_datas" / args.split, root / "sensor_blobs" / args.split
+    meta, blob = root / "navsim_logs" / args.split, root / "sensor_blobs" / args.split
     sf_yaml = (Path(args.repo) / "navsim/planning/script/config/common/train_test_split"
                / "scene_filter" / f"{args.scene_filter}.yaml")
     sl = SceneLoader(meta, blob, instantiate(OmegaConf.load(sf_yaml)),

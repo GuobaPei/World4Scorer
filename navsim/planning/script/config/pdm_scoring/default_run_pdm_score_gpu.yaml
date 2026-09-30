@@ -12,7 +12,7 @@ defaults:
   - default_evaluation
   - default_scoring_parameters
   - ddp
-  - agent: constant_velocity_agent
+  - agent: drivoR
   - _self_
   - override train_test_split: navtest
 

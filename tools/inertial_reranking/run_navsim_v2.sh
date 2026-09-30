@@ -7,7 +7,7 @@
 # 4. official one-stage EPDMS of each submission (NAVSIM v2 devkit, CPU, sharded)
 # Selection weights (noc, dac, ddc, ttc, ep, comfort) = (10, 13, 6, 14, 15, 2.1), those of the
 # released DrivoR NAVSIM-v2 model. lam0 = World4Scorer, lam1 = + inertial re-ranking.
-# NAVSIM_V2_ROOT is a checkout of the official NAVSIM v2 devkit (our copy reports 2.0.0);
+# NAVSIM_V2_ROOT is a checkout of the official NAVSIM v2 devkit (tag v2.2, see README);
 # copy score_one_stage_{shard,aggregate}.py into $NAVSIM_V2_ROOT/navsim/planning/script/.
 # V2_METRIC_CACHE is its navtest metric cache (run_metric_caching.py in that devkit).
 set -euo pipefail

@@ -1,4 +1,4 @@
-"""b2d_dataset_gpu.py — 2-core-cgroup dataset: CPU does raw byte reads only.
+"""b2d_dataset_gpu_v2.py — training dataset: the CPU only reads raw JPEG bytes.
 Targets come from the precomputed sidecar npz; jpg decode+resize happen on GPU
 in the trainer (torchvision nvJPEG). Corrupt (non-finite) samples are dropped
 at init via the sidecar `ok` mask.

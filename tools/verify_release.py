@@ -15,10 +15,6 @@ ARTIFACTS = {  # sha256 of the released files
     "dino": "dca70548ecd7b03ffba6172c4db403014511b5ee6073f9fca72ba9e6e602a25d",
     "future_bank": "2d64716d8f07a0dbc94e3f240108167acf9c9ef5093635eacb857725a13f0d82",
     "cube_head": "fce54aa53576587f002a8a515db393bc346b1daee2716630ecf14352fb08bf0e",  # OGBench-Cube head n10_r1
-    "pack_tokens": "37b445adac5c5d4674824d7fd148549abf5687054af6b492bba6d4ccc5c3dca6",
-    "pack_candidates": "823765d80d44897d37741ffeea95bc3217e433c5df6600828c8cef8b651300fc",
-    "pack_subscores": "5639a9f27b744b207add8400b9753d2e4216dc078de27ab408ce11998e19f58c",
-    "pack_mask": "742517e558f7cf041a8f481d0690517ef3f552dca51997f73ec90e2451e4a453",
 }
 
 

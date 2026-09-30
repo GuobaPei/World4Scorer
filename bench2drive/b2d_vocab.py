@@ -94,9 +94,7 @@ class Vocab:
 
     def round2(self, winners, v0, budget=64):
         """expand winner (si,vi) cells: neighbor shapes x all speeds."""
-        # split the budget over shapes AND speeds. The old code let the inner
-        # speed loop exhaust `per` at ds=0, so no winner ever reached a
-        # different shape and 240/256 shapes were unreachable.
+        # split the budget over shapes AND speeds, so a winner also reaches neighbouring shapes
         n_sp = 4                                       # local speed window
         n_sh = max(1, budget // max(len(winners), 1) // n_sp)
         out, meta, seen = [], [], set()

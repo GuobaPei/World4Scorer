@@ -13,8 +13,12 @@ DrivoR (https://github.com/valeoai/DrivoR), Apache License 2.0.
     navsim/planning/script/config/common/agent/drivoR.yaml
     navsim/planning/utils/multithreading/worker_ray_no_torch.py
     navsim/planning/script/run_create_submission_pickle.py (a personal path removed)
-    navsim/planning/script/config/pdm_scoring/default_run_create_submission_pickle_gpu.yaml
-    scripts/submission/run_cv_create_submission_pickle.sh (personal defaults replaced)
+    navsim/planning/script/config/pdm_scoring/default_run_create_submission_pickle_gpu.yaml,
+      default_run_pdm_score_gpu.yaml
+    navsim/planning/script/config/common/default_common.yaml, default_evaluation.yaml
+      (SimScale split removed)
+    navsim/common/dataloader.py (restored to NAVSIM v1.1)
+    download/download_navtrain.sh, download/download_trainval.sh (restored to NAVSIM v1.1)
     README.md, .gitignore
   Files added by the World4Scorer authors:
     navsim/agents/drivoR/shared_future_predictor.py
@@ -22,8 +26,7 @@ DrivoR (https://github.com/valeoai/DrivoR), Apache License 2.0.
     scripts/training/run_world4scorer.sh
     scripts/evaluation/run_world4scorer_navtest.sh
     tools/, bench2drive/, ogbench_cube/
-  Files of DrivoR removed: scripts/viz/, the images under tutorial/,
-    navsim/agents/drivoR/score_module/train_pdm_scorer_v2_dev.py
+  Some files of DrivoR that World4Scorer does not use were removed.
 
 NAVSIM (https://github.com/autonomousvision/navsim), Apache License 2.0.
   navsim/ derives from the NAVSIM devkit v1.1 through DrivoR.
@@ -32,7 +35,9 @@ NAVSIM (https://github.com/autonomousvision/navsim), Apache License 2.0.
   (navsim/planning/script/run_pdm_score_one_stage.py).
 
 nuPlan-devkit (https://github.com/motional/nuplan-devkit), Copyright 2021 Motional,
-Apache License 2.0. Included unmodified in nuplan-devkit/.
+Apache License 2.0. Included in nuplan-devkit/ as vendored by DrivoR: commit d60b4cd
+with DrivoR's small edits to six files (Python 3.8 type hints and python_requires,
+a silenced progress bar) and two images omitted.
 
 LeWM (https://github.com/lucas-maes/le-wm), MIT License, Copyright (c) 2026 Lucas Maes.
   ogbench_cube/eval_protocol.py is adapted from le-wm/eval.py; the license text is in

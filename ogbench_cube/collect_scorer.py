@@ -29,7 +29,6 @@ class CollectScorer:
         self.pool = None
         self.workers = int(cfg.cost.get("workers", 16))
         self.buf = []
-        self._iter_of_call = {}
 
     def attach(self, model):
         self.base = model.get_cost  # released cost: feature + reference
@@ -64,13 +63,6 @@ class CollectScorer:
         env_ids = env_ids.detach().cpu().numpy() if torch.is_tensor(env_ids) else np.asarray(env_ids)
         env_ids = env_ids.reshape(env_ids.shape[0], -1)[:, 0].astype(int)
 
-        # CEM iteration index: consecutive calls on the same env within one solve
-        key = tuple(env_ids.tolist())
-        self._iter_of_call[key] = self._iter_of_call.get(key, -1) + 1
-        it = self._iter_of_call[key]
-        if it >= int(self.cfg.solver.n_steps):
-            self._iter_of_call[key] = it = 0
-
         pred = info_dict["predicted_emb"]  # (B,S,T,D)
         term = pred[:, :, -1, :].float()
         goal = info_dict["goal_emb"].float()  # (B,1,D)
@@ -94,9 +86,7 @@ class CollectScorer:
                 worker_rollout, [(snap, target, raw[b][idx]) for idx in chunks]))
             self.buf.append(
                 dict(
-                    call=self.n_calls,
                     env=int(env_ids[b]),
-                    cem_iter=it,
                     terminal=term[b].half().cpu(),
                     goal=goal[b].half().cpu(),
                     base_cost=released[b].float().cpu(),

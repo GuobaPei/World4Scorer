@@ -1,12 +1,8 @@
 #!/usr/bin/env python3
 """dump_drivable.py — export a drivable-area raster per CARLA town.
 
-Our drivable_area_compliance label is currently "every candidate waypoint lies
-within 3.5 m of the expert polyline". That is an imitation test wearing a
-safety metric's name: a legal lane change scores 0. It also carries the largest
-within-scene spread of any sub-score (0.447 vs 0.16-0.44 for the rest), so it
-dominates the argmax. Hydra-NeXt's Bench2Drive metric system instead bounds the
-driving area against lane geometry and explicitly permits lane changes.
+The drivable_area_compliance label (b2d_metric_labels.py) asks whether each
+candidate waypoint lies on a driving lane, so a legal lane change is not penalised.
 
 CARLA has the geometry: `Map.generate_waypoints(d)` walks every driving lane of
 the loaded town. Rasterising those into an occupancy grid gives an offline
