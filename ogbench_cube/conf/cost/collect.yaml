@@ -1,0 +1,4 @@
+# Planning is driven by the released cost; every scored candidate is also
+# labelled by a real-simulator replay and dumped for head training.
+mode: collect
+workers: 16

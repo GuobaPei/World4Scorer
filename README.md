@@ -4,7 +4,7 @@
 
 ### Outcome-Grounded World Modeling for Autonomous Driving
 
-[![arXiv](https://img.shields.io/badge/arXiv-coming%20soon-b31b1b.svg?logo=arxiv&logoColor=white)](https://world4scorer.github.io/)
+[![arXiv](https://img.shields.io/badge/arXiv-2609.36438-b31b1b.svg?logo=arxiv&logoColor=white)](https://arxiv.org/abs/2609.36438)
 [![Project Page](https://img.shields.io/badge/Project-Page-7c6cff.svg?logo=googlechrome&logoColor=white)](https://world4scorer.github.io/)
 [![Film](https://img.shields.io/badge/Film-95%20s-ec4e9b.svg?logo=youtube&logoColor=white)](https://world4scorer.github.io/#video)
 [![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Weights-ffd21e.svg)](https://huggingface.co/pei2333/World4Scorer)
@@ -25,8 +25,8 @@ https://github.com/user-attachments/assets/7f7e345d-5c78-4db3-aef1-135b5921842b
 
 ## News
 
-- **2026/09** Paper, [project page](https://world4scorer.github.io/) and a 95-second overview film are online.
-- **Coming soon** Code in this repository and checkpoints on [Hugging Face](https://huggingface.co/pei2333/World4Scorer), once the paper is public on arXiv.
+- **2026/09** [Paper](https://arxiv.org/abs/2609.36438), [project page](https://world4scorer.github.io/) and a 95-second overview film are online.
+- **2026/09** Code and [checkpoints](https://huggingface.co/pei2333/World4Scorer) released.
 
 ## Highlights
 
@@ -120,15 +120,37 @@ More scenes, an interactive replay and the film are on the [project page](https:
 
 | Model | Result | Download |
 |---|---|---|
-| NAVSIM planner (seed 3, epoch 23, 35.5M parameters) | 91.4 EPDMS · 93.0 with re-ranking · 94.0 PDMS | Hugging Face (coming soon) |
-| Bench2Drive planner with route point (epoch 14) | 73.27 Driving Score | Hugging Face (coming soon) |
-| OGBench-Cube outcome head `n10_r1` | 73.64% success | Hugging Face (coming soon) |
+| NAVSIM planner (seed 3, epoch 23, 35.5M parameters) | 91.4 EPDMS · 93.0 with re-ranking · 94.0 PDMS | [w4s_navsim_ep23.ckpt](https://huggingface.co/pei2333/World4Scorer/blob/main/weights/w4s_navsim_ep23.ckpt) |
+| Bench2Drive planner with route point (epoch 14) | 73.27 Driving Score | [w4s_b2d_route_tp_ep14.ckpt](https://huggingface.co/pei2333/World4Scorer/blob/main/weights/w4s_b2d_route_tp_ep14.ckpt) |
+| Bench2Drive route-blind model (epoch 14) | initialization of the route-point model | [w4s_b2d_route_blind_ep14.ckpt](https://huggingface.co/pei2333/World4Scorer/blob/main/weights/w4s_b2d_route_blind_ep14.ckpt) |
+| OGBench-Cube outcome head `n10_r1` | 73.64% success | [head.pt](https://huggingface.co/pei2333/World4Scorer/blob/main/ogbench_cube/heads/n10_r1/head.pt) |
+| NAVSIM future targets (navtrain) | used only in training | [realized_future_emb_navtrain_f7_camf0.pt](https://huggingface.co/pei2333/World4Scorer/blob/main/weights/realized_future_emb_navtrain_f7_camf0.pt) |
+
+From the repository root, this puts every file where the scripts expect it:
+
+```bash
+hf download pei2333/World4Scorer --include "weights/*" --include "ogbench_cube/*" --local-dir .
+```
+
+<details>
+<summary><b>SHA-256 of the files behind the reported numbers</b></summary>
+
+Check a download with `tools/verify_release.py --artifact KIND=PATH`.
+
+| kind | file | sha256 |
+|---|---|---|
+| `navsim_ckpt` | NAVSIM model, epoch 23 | `22604f83dda8a2bd2dd05356fca8457f0c7dc78439f47db396e5c85d74971a44` |
+| `b2d_ckpt` | Bench2Drive model with route point, epoch 14 | `ed3f61a9ac850627c07bbf1d37cc0a9e123d5b41a9c1cecefe820644e14aff5b` |
+| `b2d_route_blind_ckpt` | Bench2Drive route-blind model, epoch 14 | `640dd42934b57d9305c336db7234747533977ad916c18723a9bb97b385407d31` |
+| `cube_head` | OGBench-Cube outcome head `n10_r1` | `fce54aa53576587f002a8a515db393bc346b1daee2716630ecf14352fb08bf0e` |
+| `future_bank` | navtrain future targets | `2d64716d8f07a0dbc94e3f240108167acf9c9ef5093635eacb857725a13f0d82` |
+| `dino` | DINOv2 ViT-S/14 reg4 weights | `dca70548ecd7b03ffba6172c4db403014511b5ee6073f9fca72ba9e6e602a25d` |
+
+</details>
 
 ## Getting started
 
-> **Note** The code will be released in this repository once the paper is public on arXiv. The steps below describe that release.
-
-The code is built on [DrivoR](https://github.com/valeoai/DrivoR) (commit `f026654`), which builds on the NAVSIM devkit v1.1. The agent keeps DrivoR's module names (`drivoR`, `DrivoRModel`); the World4Scorer model is selected by the flags in `scripts/training/run_world4scorer.sh`.
+The code is built on [DrivoR](https://github.com/valeoai/DrivoR) (commit `f026654`), which builds on the NAVSIM devkit v1.1. The agent keeps DrivoR's module names (`drivoR`, `DrivoRModel`); the World4Scorer scorer is in `navsim/agents/drivoR/drivor_model.py` and `shared_future_predictor.py`.
 
 <details>
 <summary><b>Repository layout</b></summary>
@@ -140,7 +162,6 @@ scripts/evaluation/     run_world4scorer_navtest.sh, NAVSIM-v1 submission and sc
 tools/                  future targets, inertial re-ranking (NAVSIM-v2), release verification
 bench2drive/            CARLA / Bench2Drive training and closed-loop evaluation
 ogbench_cube/           outcome head inside the LeWM planner on OGBench-Cube
-docs/                   project page
 assets/                 figures and animations of this README
 ```
 
@@ -195,6 +216,8 @@ python tools/precompute_future_embeddings.py --repo $NAVSIM_DEVKIT_ROOT \
     --out $NAVSIM_EXP_ROOT/realized_future_emb_navtrain_f7_camf0.pt
 export FUTURE_BANK=$NAVSIM_EXP_ROOT/realized_future_emb_navtrain_f7_camf0.pt
 ```
+
+   The file used for the paper is also on Hugging Face (`weights/realized_future_emb_navtrain_f7_camf0.pt`).
 
 6. Candidate bank. Training adds 16 candidates per scene from the trajectory bank of
    [CLOVER](https://arxiv.org/abs/2605.15120) (code and data:
@@ -253,11 +276,10 @@ export NAVSIM_V2_ROOT=/path/to/navsim_v2 V2_METRIC_CACHE=/path/to/navtest_v2_met
 bash tools/inertial_reranking/run_navsim_v2.sh /path/to/checkpoint.ckpt /path/to/work_dir
 ```
 
-The script writes four submissions: selection weights V1 or Nav2
-(10, 13, 6, 14, 15, 2.1, the weights of the released DrivoR NAVSIM-v2 model),
-each with λ = 0 (the model's own choice) and λ = 1 (inertial re-ranking,
-penalty log(0.01 + 0.99·EC)). The paper reports `nav2_lam0` and `nav2_lam1`.
-The λ = 0 submission must reproduce the plain model score.
+With the selection weights of the released DrivoR NAVSIM-v2 model
+(10, 13, 6, 14, 15, 2.1), the script writes two submissions: `lam0`, the model's own
+choice (World4Scorer), and `lam1`, inertial re-ranking with the penalty
+log(0.01 + 0.99·EC) (World4Scorer + inertial re-ranking).
 
 </details>
 
@@ -271,13 +293,13 @@ checkout. `B2D_DATA` is the official 1000-clip Bench2Drive-base set.
 export B2D_DATA=/path/to/bench2drive_base CARLA_ROOT=/path/to/carla BENCH2DRIVE_ROOT=/path/to/Bench2Drive
 bash bench2drive/train_b2d.sh 0,1,2,3          # sidecars, route-blind model, route-point model
 bash bench2drive/run_b2d_eval.sh $BENCH2DRIVE_ROOT/leaderboard/data/bench2drive220.xml - \
-    bench2drive/b2d_agent/cfg_tpv2_both.json results_b2d.json 0
+    bench2drive/b2d_agent/config.json results_b2d.json 0
 ```
 
-`cfg_tpv2_both.json` is the paper configuration: the route point 20 m ahead as
-an ego input, route re-ranking (`route_align`), and command retention
-(`cmd_behind`). The agent re-plans every 0.5 s and tracks the selected
-trajectory with a PID controller.
+The agent feeds the route point 20 m ahead to the model, re-ranks the candidates
+by their agreement with the route, and retires a route command only once the car
+has passed it. It re-plans every 0.5 s and tracks the selected trajectory with a
+PID controller.
 
 </details>
 
@@ -305,9 +327,8 @@ coefficient on tuning seeds (the paper's run selected 0.3), and evaluates on the
 python tools/verify_release.py --count-params
 ```
 
-checks that `navsim/` equals the code that produced the paper results (two
-Bench2Drive additions to `drivor_model.py` are inactive unless enabled) and that
-the model has 35,520,926 parameters.
+builds the model and checks that it has 35,520,926 parameters; `--artifact KIND=PATH`
+checks a download against the SHA-256 values above.
 
 </details>
 
@@ -317,7 +338,7 @@ the model has 35,520,926 parameters.
 @article{pei2026world4scorer,
   title   = {World4Scorer: Outcome-Grounded World Modeling for Autonomous Driving},
   author  = {Pei, Jieyuan and Lu, Meiyi and Ang, Sining and Zhao, Yubo and Hu, Zhangyi and Xu, Mingwei and Ding, Haokai and Li, Wei and You, Zihan and Zheng, Jianwei and Yu, Li and Pan, Yifeng and Tao, Ji and Zhang, Rongjunchen and Wang, Yan},
-  journal = {arXiv preprint},
+  journal = {arXiv preprint arXiv:2609.36438},
   year    = {2026}
 }
 ```

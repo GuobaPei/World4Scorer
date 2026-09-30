@@ -1,0 +1,3 @@
+# The released hand-written cost: MSE between the predicted final latent and
+# the goal latent.  This is the anchor -- nothing is swapped.
+mode: lewm

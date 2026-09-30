@@ -1,0 +1,39 @@
+World4Scorer
+Copyright 2026 The World4Scorer Authors
+
+This product is released under the Apache License, Version 2.0 (see LICENSE).
+It includes software developed by third parties:
+
+DrivoR (https://github.com/valeoai/DrivoR), Apache License 2.0.
+  This repository is a modified copy of DrivoR at commit f026654. Files modified
+  by the World4Scorer authors:
+    navsim/agents/drivoR/drivor_agent.py
+    navsim/agents/drivoR/drivor_model.py
+    navsim/agents/drivoR/score_module/compute_navsim_score.py
+    navsim/planning/script/config/common/agent/drivoR.yaml
+    navsim/planning/utils/multithreading/worker_ray_no_torch.py
+    navsim/planning/script/run_create_submission_pickle.py (a personal path removed)
+    navsim/planning/script/config/pdm_scoring/default_run_create_submission_pickle_gpu.yaml
+    scripts/submission/run_cv_create_submission_pickle.sh (personal defaults replaced)
+    README.md, .gitignore
+  Files added by the World4Scorer authors:
+    navsim/agents/drivoR/shared_future_predictor.py
+    navsim/planning/script/run_pool_dump.py
+    scripts/training/run_world4scorer.sh
+    scripts/evaluation/run_world4scorer_navtest.sh
+    tools/, bench2drive/, ogbench_cube/
+  Files of DrivoR removed: scripts/viz/, the images under tutorial/,
+    navsim/agents/drivoR/score_module/train_pdm_scorer_v2_dev.py
+
+NAVSIM (https://github.com/autonomousvision/navsim), Apache License 2.0.
+  navsim/ derives from the NAVSIM devkit v1.1 through DrivoR.
+  tools/inertial_reranking/score_one_stage_shard.py and score_one_stage_aggregate.py
+  reuse row construction and aggregation of the NAVSIM v2 devkit
+  (navsim/planning/script/run_pdm_score_one_stage.py).
+
+nuPlan-devkit (https://github.com/motional/nuplan-devkit), Copyright 2021 Motional,
+Apache License 2.0. Included unmodified in nuplan-devkit/.
+
+LeWM (https://github.com/lucas-maes/le-wm), MIT License, Copyright (c) 2026 Lucas Maes.
+  ogbench_cube/eval_protocol.py is adapted from le-wm/eval.py; the license text is in
+  ogbench_cube/LICENSE-le-wm.

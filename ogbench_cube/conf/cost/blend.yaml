@@ -1,0 +1,5 @@
+# Released cost + coefficient x outcome head (head_scorer.py); the coefficient is
+# chosen in closed loop on the tuning seeds (select_c.py).
+mode: blend
+head_path: ???
+coefficient: ???
